@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 
 public class HomeAlunoActivity extends AppCompatActivity {
@@ -42,6 +43,12 @@ public class HomeAlunoActivity extends AppCompatActivity {
 
     }
 
+    // Quando for voltar para a pagina principal da UFAPE usa esse código
+    public void clickBotaoHome(View view){
+        Intent intent = new Intent(this, MainActivityUfape.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     public void irTelaInformacoesDiscente(View view){
         Intent irTelaInformacoesDiscente = new Intent(getApplicationContext(), InformacoesDiscenteActivity.class);

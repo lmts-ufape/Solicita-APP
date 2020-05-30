@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Conheça nossas Redes Sociais"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:textColor="#1b2d4f"
+        android:padding="5dp"
+        />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:onClick="clickBotaoYoutube"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ufape_icone_youtube"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+
+        <TextView
+            android:onClick="clickBotaoInstagram"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ufape_icone_instagram"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+
+        <TextView
+            android:onClick="clickBotaoFacebook"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ufape_icone_facebook"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+
+        <TextView
+            android:onClick="clickBotaoTwitter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ufape_icone_twitter"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+
+    </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

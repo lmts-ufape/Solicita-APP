@@ -6,7 +6,8 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.solicita"
-        minSdkVersion 15
+        // sdk era igual a 15, coloquei para o 17
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -54,4 +55,10 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
 
+    //ufape
+    implementation 'org.jsoup:jsoup:1.11.2'
+    implementation 'info.androidhive:fontawesome:0.0.5'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    compile 'com.github.bluejamesbond:textjustify-android:1.5.1'
 }
