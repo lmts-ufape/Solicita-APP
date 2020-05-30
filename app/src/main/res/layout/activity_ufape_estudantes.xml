@@ -1,0 +1,186 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Assistência Estudantil"
+            android:padding="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="22dp"
+            android:textColor="#1b2d4f"
+            android:textStyle="bold"
+            />
+
+        <LinearLayout
+            android:id="@+id/botao_anexos"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Anexos"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botao_editais"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editais"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botao_formulario_psicologico"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Formulário para atendimento psicológico on-line"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botao_inscricoes_online"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inscrições on-line"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botao_resolucoes"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Resoluções"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botao_resultados"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/ufape_botao_customizado_inicio"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Resultados"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16dp"
+                android:textColor="#1b2d4f"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            >
+
+            <include
+                layout="@layout/activity_ufape_rodape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

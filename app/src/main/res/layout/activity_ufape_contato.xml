@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout_contato_ufape"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Contato"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="22dp"
+                android:textColor="#1b2d4f"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/botao_lista_email_ufape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Lista de E-mail da UFRPE"
+                android:textSize="18dp"
+                android:textAlignment="center"
+                android:textColor="#005392"
+                android:padding="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/ufape_botao_customizado_contato2"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:text="UFAPE"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_phone_solid"
+                        android:textColor="#ffffff"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="(87) 3764-5551"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_map_marker_alt_solid"
+                        android:textColor="#ffffff"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+                        android:paddingLeft="2.5dp"
+                        android:paddingRight="2.5dp"
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Av. Bom Pastor, s/n - Boa Vista, Garanhuns - PE, 55292-270"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/botao_mapa_ufape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_map_marked_alt_solid"
+                        android:textColor="#ffffff"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Ver no mapa"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/ufape_botao_customizado_contato1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textStyle="bold"
+                    android:text="Clínica de Bovinos"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_phone_solid"
+                        android:textColor="#1492e6"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="(87) 3761-3233 ou (87) 3762-2397"
+                        android:textSize="18dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_map_marker_alt_solid"
+                        android:textColor="#1492e6"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+                        android:paddingLeft="2.5dp"
+                        android:paddingRight="2.5dp"
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Av. Bom Pastor - Boa Vista, Garanhuns - PE, 55292-270"
+                        android:textSize="18dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/botao_mapa_clinica_bovinos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_map_marked_alt_solid"
+                        android:textColor="#1492e6"
+                        android:textSize="22dp"
+                        android:layout_gravity="center"
+
+                        android:layout_marginRight="10dp"
+                        app:solid_icon="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Ver no mapa"
+                        android:textSize="18dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/botao_mais_informacoes_contato_ufape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Mais Informações..."
+                android:textSize="18dp"
+                android:textColor="#005392"
+                android:paddingTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                >
+
+                <include
+                    layout="@layout/activity_ufape_rodape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/activity_ufape_botao_voltar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        />
+
+</LinearLayout>

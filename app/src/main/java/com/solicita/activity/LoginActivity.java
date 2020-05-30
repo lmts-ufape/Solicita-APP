@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.solicita.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.User;
 import com.solicita.network.ApiClient;
@@ -127,5 +128,11 @@ public class LoginActivity extends AppCompatActivity {
         editLoginSenha = findViewById(R.id.editLoginSenha);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonCadastrar = findViewById(R.id.buttonAdicionarPerfil);
+    }
+
+    public void clickBotaoHome(View view){
+        Intent intent = new Intent(this, MainActivityUfape.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

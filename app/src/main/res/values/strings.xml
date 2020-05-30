@@ -15,5 +15,6 @@
     <string name="lista_unidade_academica_prompt">Selecione a unidade acadêmica</string>
 
     <string name="lista_curso_prompt">Selecione o tipo de vínculo</string>
+    <string name="title_activity_maps2">Map</string>
 
 </resources>
