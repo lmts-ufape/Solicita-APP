@@ -1,7 +1,6 @@
 package com.solicita.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -84,7 +83,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
         buttonExcluirPerfil.setOnClickListener(v -> excluirPerfil());
 
-        buttonAlterarPerfil.setOnClickListener(v -> alterarPerfilDefault());
+         buttonAlterarPerfil.setOnClickListener(v -> alterarPerfilDefault());
 
     }
 
@@ -114,7 +113,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
 
             for (int i = 0; i < perfil.size(); i++) {
-
                 RadioGroup.LayoutParams rl2;
                 //radioGroup.setId(i);
                 RadioButton radioButton = new RadioButton(this);
@@ -122,7 +120,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
                 rl2 = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT);
                 radioGroup.addView(radioButton, rl2);
-
             }
             linearLayout.addView(radioGroup);
 
@@ -131,11 +128,11 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     RadioButton radioButton = findViewById(checkedId);
                     Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_LONG).show();
-                    System.out.println(radioGroup.getCheckedRadioButtonId());
+                   // System.out.println(radioGroup.getCheckedRadioButtonId());
 
                     for (int i = 0; i < perfilArrayList.size(); i++) {
                         if (radioButton.getText().equals(perfilArrayList.get(i).getCurso() + " - " + perfilArrayList.get(i).getSituacao())) {
-                            System.out.println("Valor do ID: " + perfilArrayList.get(i).getId());
+                            System.out.println("Valor do ID: " + perfilArrayList.get(i).getId() + " Índice: " + i);
                             idPerfil = perfilArrayList.get(i).getId();
                         }
                     }
@@ -145,10 +142,8 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                                  idPerfilDefault=perfilArrayList.get(j).getId();
                         }
                     }
-
                 }
             });
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -165,6 +160,9 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                     radioGroupJSON(jsonResponse);
 
                 } else {
+
+                    Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
 
                 }
             }
@@ -207,6 +205,9 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
 
                 } else {
+
+                    Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
 
                 }
             }
@@ -344,13 +345,29 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
     }
 
     public void logoutApp() {
-        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
-        startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-        finish();
+
+        Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
+
+        responseCall.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                DefaultResponse dr = response.body();
+                Toast.makeText(InformacoesDiscenteActivity.this, dr.getMessage(), Toast.LENGTH_SHORT).show();
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
+                startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
-    public void irHome(){
+    public void irHome() {
         startActivity(new Intent(InformacoesDiscenteActivity.this, HomeAlunoActivity.class));
 
     }
@@ -376,64 +393,90 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Selecione um perfil.", Toast.LENGTH_LONG).show();
         } else {
 
-            AlertDialog.Builder dialogExluirPerfil = new AlertDialog.Builder(this);
+            AlertDialog dialogExluirPerfil = new AlertDialog.Builder(InformacoesDiscenteActivity.this).create();
+            View mView = getLayoutInflater().inflate(R.layout.dialog_confirmacao, null);
 
-            dialogExluirPerfil.setTitle("Exclusão de Perfil Acadêmico");
-            dialogExluirPerfil.setMessage("Deseja realmente excluir o perfil selecionado?");
+            TextView tvTitulo = mView.findViewById(R.id.tvTitulo);
+            TextView tvMensagem = mView.findViewById(R.id.tvMensagem);
+            Button buttonConfirmar = mView.findViewById(R.id.buttonConfirmar);
+            Button buttonCancelar = mView.findViewById(R.id.buttonCancelar);
 
-            dialogExluirPerfil.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            tvTitulo.setText(R.string.titulo_exclusao_perfil);
+            tvMensagem.setText(R.string.mensagem_exclusao_perfil);
 
+            dialogExluirPerfil.setView(mView);
+
+            buttonCancelar.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
+                    dialogExluirPerfil.dismiss();
+                }
+            });
+            buttonConfirmar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     Call<DefaultResponse> callExcluir = apiInterface.postExcluirPerfil(idPerfil, sharedPrefManager.getSPToken());
                     callExcluir.enqueue(new Callback<DefaultResponse>() {
                         @Override
                         public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                            if (response.code() == 200) {
-
-                                DefaultResponse dr = response.body();
+                            DefaultResponse dr = response.body();
+                            if (response.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
+                                if (response.code() == 201) {
+                                    Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
+                                }else{
+                                    System.out.println("Else 201");
+                                }
+                            }else {
 
-                            } else {
+                                Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<DefaultResponse> call, Throwable t) {
-
                         }
                     });
                 }
             });
-            dialogExluirPerfil.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            dialogExluirPerfil.create();
             dialogExluirPerfil.show();
 
         }
     }
-
     public void alterarPerfilDefault() {
 
         if (idPerfilDefault.equals("")) {
             Toast.makeText(getApplicationContext(), "Selecione um perfil.", Toast.LENGTH_LONG).show();
         } else {
 
-            AlertDialog.Builder dialogAlterarPerfil = new AlertDialog.Builder(this);
+            AlertDialog dialogAlterarPerfil = new AlertDialog.Builder(InformacoesDiscenteActivity.this).create();
 
-            dialogAlterarPerfil.setTitle("Alteração de Perfil Acadêmico");
-            dialogAlterarPerfil.setMessage("Definir o perfil selecionado como padrão?");
+            View mView2 = getLayoutInflater().inflate(R.layout.dialog_confirmacao, null);
 
-            dialogAlterarPerfil.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            TextView tvTitulo = mView2.findViewById(R.id.tvTitulo);
+            TextView tvMensagem = mView2.findViewById(R.id.tvMensagem);
+            Button buttonConfirmar = mView2.findViewById(R.id.buttonConfirmar);
+            Button buttonCancelar = mView2.findViewById(R.id.buttonCancelar);
 
+            tvTitulo.setText(R.string.titulo_alteracao_perfil);
+            tvMensagem.setText(R.string.mensagem_alteracao_perfil);
+
+            dialogAlterarPerfil.setView(mView2);
+
+            buttonCancelar.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
+                    dialogAlterarPerfil.dismiss();
+                }
+            });
+
+            buttonConfirmar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
                     Call<DefaultResponse> callAlterar = apiInterface.postAlterarPerfil(idPerfilDefault, sharedPrefManager.getSPToken());
                     callAlterar.enqueue(new Callback<DefaultResponse>() {
                         @Override
@@ -446,9 +489,11 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
                             } else {
 
+                                Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
+
                             }
                         }
-
                         @Override
                         public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
@@ -456,15 +501,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                     });
                 }
             });
-            dialogAlterarPerfil.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            dialogAlterarPerfil.create();
             dialogAlterarPerfil.show();
-
         }
     }
 }
