@@ -48,6 +48,7 @@
     <string name="button_atualizar">Atualizar</string>
     <string name="button_cancelar">Cancelar</string>
     <string name="button_cadastrar">Cadastrar</string>
+    <string name="button_cadastro">Cadastrar</string>
     <string name="button_solicitar_documentos">Solicitar Documentos</string>
     <string name="button_listar_documentos_solicitados">Listar Documentos Solicitados</string>
     <string name="button_perfil">Perfil</string>
@@ -98,5 +99,6 @@
     <string name="mensagem_alteracao_perfil">Deseja alterar o perfil acadêmico padrão?</string>
     <string name="titulo_exclusao_perfil">Exclusão de Perfil Acadêmico</string>
     <string name="mensagem_exclusao_perfil">Deseja excluir o perfil selecionado?</string>
+    <string name="message_detalhes_listagem">Para detalhes, clique na requisição.</string>
 
 </resources>

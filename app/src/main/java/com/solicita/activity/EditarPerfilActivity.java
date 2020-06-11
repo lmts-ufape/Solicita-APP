@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.User;
 import com.solicita.network.ApiClient;
@@ -124,6 +125,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(EditarPerfilActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -137,6 +139,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
     public void irHome(){
         startActivity(new Intent(EditarPerfilActivity.this, HomeAlunoActivity.class));
 
+    }
+
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     public void irTelaInformacoesDiscente(View view){

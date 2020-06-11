@@ -110,7 +110,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
     private void buscarJSON() {
 
         Call<String> callCurso = apiInterface.getCursoJSONString();
-        Call<String> callUnidade = apiInterface.getUnidadeJSONString();
+  //      Call<String> callUnidade = apiInterface.getUnidadeJSONString();
 
         callCurso.enqueue(new Callback<String>() {
             @Override
@@ -119,7 +119,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                     if (response.body() != null) {
                         String jsonResponse = response.body();
                         spinnerCursoJSON(jsonResponse);
-                        spinnerUnidadeJSON(jsonResponse);
+                       // spinnerUnidadeJSON(jsonResponse);
 
                     } else {
                         Log.i("onEmptyResponse", "Empty");
@@ -133,7 +133,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
             }
         });
 
-        callUnidade.enqueue(new Callback<String>() {
+  /*      callUnidade.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
@@ -152,7 +152,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
             public void onFailure(Call<String> call, Throwable t) {
                 System.out.println("Erro");
             }
-        });
+        });*/
 
     }
 
@@ -204,7 +204,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         }
     }
 
-    public void spinnerUnidadeJSON(String response) {
+ /*   public void spinnerUnidadeJSON(String response) {
         try {
             JSONObject object = new JSONObject(response);
             unidadeArrayList = new ArrayList<>();
@@ -251,7 +251,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void cadastrar() {
 
@@ -382,7 +382,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         campoEmail = findViewById(R.id.editEmail);
         campoSenha = findViewById(R.id.editSenha);
         campoConfirmarSenha = findViewById(R.id.editConfirmarSenha);
-        buttonCadastro = findViewById(R.id.buttonCadastrar);
+        buttonCadastro = findViewById(R.id.btCadastrar);
         checkBox = findViewById(R.id.checkBox);
     }
 

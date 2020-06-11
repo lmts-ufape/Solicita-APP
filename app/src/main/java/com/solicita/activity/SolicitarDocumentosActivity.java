@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.Documento;
 import com.solicita.model.Perfil;
@@ -415,6 +416,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(SolicitarDocumentosActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -428,6 +430,10 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
     public void irHome(){
         startActivity(new Intent(SolicitarDocumentosActivity.this, HomeAlunoActivity.class));
 
+    }
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     public void inicializarComponentes() {

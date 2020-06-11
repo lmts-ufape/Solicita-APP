@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.adapter.AdapterDocumentos;
 import com.solicita.helper.RecyclerItemClickListener;
 import com.solicita.helper.SharedPrefManager;
@@ -469,6 +470,7 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(ListarDocumentosSolicitadosActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -483,6 +485,10 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
     public void irHome() {
         startActivity(new Intent(ListarDocumentosSolicitadosActivity.this, HomeAlunoActivity.class));
 
+    }
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     public void inicializarComponentes() {

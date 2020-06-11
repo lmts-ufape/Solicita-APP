@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.Aluno;
 import com.solicita.model.Perfil;
@@ -366,6 +367,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -513,5 +515,10 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
             });
             dialogAlterarPerfil.show();
         }
+    }
+
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

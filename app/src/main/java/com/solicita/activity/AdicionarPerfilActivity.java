@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.Curso;
 import com.solicita.model.Unidade;
@@ -316,6 +317,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(AdicionarPerfilActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -330,6 +332,10 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         startActivity(new Intent(AdicionarPerfilActivity.this, HomeAlunoActivity.class));
 
     }
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
 
     public void abrirPerfilDiscente(View view){
         Intent abrirPerfil = new Intent(getApplicationContext(), InformacoesDiscenteActivity.class);
@@ -341,7 +347,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         spinnerUnidade=findViewById(R.id.spinnerUnidade);
         spinnerCurso=findViewById(R.id.spinnerCurso);
         checkDefinirPadrao=findViewById(R.id.checkDefinirPadrao);
-        buttonAdicionarPerfil=findViewById(R.id.buttonCadastrar);
+        buttonAdicionarPerfil=findViewById(R.id.buttonAdicionarPerfil);
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonHome = findViewById(R.id.buttonHome);
         textNomeUsuario = findViewById(R.id.textNomeUsuario);

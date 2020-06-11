@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
+import com.solicita.activity.ufape.inicio.InicioActivityPrincipal;
 import com.solicita.activity.ufape.inicio.inicio.InicioActivity;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.network.ApiClient;
@@ -54,6 +56,7 @@ public class HomeAlunoActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(HomeAlunoActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -68,10 +71,9 @@ public class HomeAlunoActivity extends AppCompatActivity {
        // startActivity(new Intent(HomeAlunoActivity.this, HomeAlunoActivity.class));
 
     }
-    public void clickBotaoHome(View view){
-        Intent intent = new Intent(this, InicioActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     public void irTelaInformacoesDiscente(View view){

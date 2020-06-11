@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.network.ApiClient;
 import com.solicita.network.ApiInterface;
@@ -104,6 +105,7 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
                 startActivity(new Intent(ConfirmacaoRequisicaoActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                clickBotaoHomeUfape();
                 finish();
             }
 
@@ -113,6 +115,11 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
     public void irHome(){
         startActivity(new Intent(ConfirmacaoRequisicaoActivity.this, HomeAlunoActivity.class));

@@ -33,10 +33,10 @@ public interface ApiInterface {
     @POST("api/logout")
     Call<DefaultResponse> postLogout(@Header("Authorization") String token);
 
-    @GET("api/cursos")
+    @GET("api/cursos/")
     Call<String> getCursoJSONString();
 
-    @GET("api/unidades")
+    @GET("api/unidades/")
     Call<String> getUnidadeJSONString();
 
     @GET("api/documentos/")
