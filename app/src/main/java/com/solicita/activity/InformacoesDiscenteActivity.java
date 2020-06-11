@@ -1,5 +1,6 @@
 package com.solicita.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,6 +61,8 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
     String idPerfil = "";
     String idPerfilDefault = "";
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,10 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         inicializarComponentes();
 
         textNomeUsuario.setText(sharedPrefManager.getSPNome());
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCancelable(false);
 
         buscarPerfisJSON();
         buscarInfoJSON();
@@ -258,6 +265,8 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
     }
 
     public void buscarInfo(String response) {
+
+        progressDialog.show();
         try {
             JSONObject object = new JSONObject(response);
 
@@ -322,7 +331,8 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }
+            }progressDialog.dismiss();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

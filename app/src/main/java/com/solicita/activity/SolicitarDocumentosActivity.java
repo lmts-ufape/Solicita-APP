@@ -236,7 +236,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                 EditText editText = new EditText(context);
 
-                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")){
+                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")){
 
                     editText.setTextSize(18);
                     editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
