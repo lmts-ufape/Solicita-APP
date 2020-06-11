@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         sharedPrefManager = new SharedPrefManager(this);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Carregando...");
         progressDialog.setCancelable(false);

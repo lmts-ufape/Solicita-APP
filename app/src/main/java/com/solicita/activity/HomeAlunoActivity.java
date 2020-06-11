@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.inicio.inicio.InicioActivity;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.network.ApiClient;
 import com.solicita.network.ApiInterface;
@@ -39,6 +40,7 @@ public class HomeAlunoActivity extends AppCompatActivity {
         textNomeUsuario.setText(sharedPrefManager.getSPNome());
 
         buttonLogout.setOnClickListener(v -> logoutApp());
+
     }
     public void logoutApp() {
 
@@ -63,10 +65,14 @@ public class HomeAlunoActivity extends AppCompatActivity {
 
     }
     public void irHome(){
-        startActivity(new Intent(HomeAlunoActivity.this, HomeAlunoActivity.class));
+       // startActivity(new Intent(HomeAlunoActivity.this, HomeAlunoActivity.class));
 
     }
-
+    public void clickBotaoHome(View view){
+        Intent intent = new Intent(this, InicioActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     public void irTelaInformacoesDiscente(View view){
         Intent irTelaInformacoesDiscente = new Intent(getApplicationContext(), InformacoesDiscenteActivity.class);

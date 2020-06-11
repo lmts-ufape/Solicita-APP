@@ -1,5 +1,6 @@
 package com.solicita.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -92,6 +93,8 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
     ArrayList listaElementosStatus = null;
     ArrayList listaElementosDet = null;
 
+    ProgressDialog progressDialog;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -111,6 +114,10 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(v -> logoutApp());
 
         buttonVoltar.setOnClickListener(v -> irHome());
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCancelable(false);
 
         this.buscarJSON();
 
@@ -240,11 +247,16 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
     }
 
     private void buscarJSON() {
+
+        progressDialog.show();
+
         Call<String> getRequisicoesJSONString = apiInterface.getRequisicoesJSONString(sharedPrefManager.getSPToken());
         getRequisicoesJSONString.enqueue(new Callback<String>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+
+                progressDialog.dismiss();
                 if (response.code() == 200) {
                     String jsonResponse = response.body();
                     listarSolicitacoes(jsonResponse);

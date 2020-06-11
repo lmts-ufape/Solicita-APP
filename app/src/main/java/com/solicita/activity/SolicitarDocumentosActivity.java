@@ -1,5 +1,6 @@
 package com.solicita.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,6 +75,8 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
     Context context;
 
+    ProgressDialog progressDialog;
+
     String cursoP, situacaoP, dataP, horaP;
     String declaracaoVinculo = "", comprovanteMatricula = "", historico = "", programaDisciplina = "", outros = "", requisicaoPrograma = "", requisicaoOutros = "";
 
@@ -90,6 +93,10 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         inicializarComponentes();
 
         textNomeUsuario.setText(sharedPrefManager.getSPNome());
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCancelable(false);
 
         buscarJSON();
 
@@ -150,10 +157,13 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
     private void buscarJSON() {
 
+        progressDialog.show();
+
         Call<String> getUserPerfil = apiInterface.getUserPerfil(sharedPrefManager.getSPToken());
         getUserPerfil.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+
                 if (response.code() == 200) {
 
                     String jsonResponse = response.body();
@@ -163,6 +173,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                     callDocumento.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
+                            progressDialog.dismiss();
                             if (response.isSuccessful()) {
                                 String jsonResponse = response.body();
                                 checkboxDocumentos(jsonResponse);
