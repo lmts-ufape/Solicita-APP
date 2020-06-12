@@ -25,6 +25,7 @@ import com.solicita.helper.MaskCustom;
 import com.solicita.helper.ValidacaoCPF;
 import com.solicita.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.solicita.helper.ValidacaoEmail;
 import com.solicita.model.Curso;
 import com.solicita.model.Unidade;
 import com.solicita.network.ApiClient;
@@ -119,7 +120,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                     if (response.body() != null) {
                         String jsonResponse = response.body();
                         spinnerCursoJSON(jsonResponse);
-                       // spinnerUnidadeJSON(jsonResponse);
+                        //spinnerUnidadeJSON(jsonResponse);
 
                     } else {
                         Log.i("onEmptyResponse", "Empty");
@@ -292,6 +293,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         });
 
         ValidacaoCPF validacaoCPF = new ValidacaoCPF();
+        ValidacaoEmail validacaoEmail = new ValidacaoEmail();
 
         if (!name.isEmpty()) {//verifica nome
             if (validacaoCPF.isCPF(cpf)) {//verifica cpf valido
@@ -299,55 +301,63 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                     if (!vinculo.isEmpty()) {//verifica vinculo
                         if (!idUnidade.isEmpty()) {//verifica unidade academica
                             if (!idCurso.isEmpty()) {//verifica cursos
-                                if (!email.isEmpty()) {//verifica e-mail
-                                    if (!password.isEmpty()) {//verifica senha
-                                        if (!confirm_password.isEmpty()) {//verifica confirmacao de senha
-                                            if (password.equals(confirm_password)) {
+                                if (validacaoEmail.isValidEmailAddressRegex(email)) {
+                                    if (!email.isEmpty()) {//verifica e-mail
+                                        if (!password.isEmpty()) {//verifica senha
+                                            if (!confirm_password.isEmpty()) {//verifica confirmacao de senha
+                                                if (password.equals(confirm_password)) {
 
-                                                call = apiInterface.postCadastro(name, cpf, vinculo, idUnidade, idCurso, email, password);
-                                                call.enqueue(new Callback<UserResponse>() {
-                                                    @Override
-                                                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                                                        if (response.isSuccessful()) {
-                                                            if (response.code() == 201) {
-                                                                DefaultResponse dr = response.body();
-                                                                Toast.makeText(CadastrarDiscenteActivity.this, dr.getMessage(), Toast.LENGTH_LONG).show();
-                                                                System.out.println(dr.getMessage());
-                                                                startActivity(new Intent(CadastrarDiscenteActivity.this, LoginActivity.class));
-                                                                finish();
-                                                            }else if (response.code()==500){
+                                                    call = apiInterface.postCadastro(name, cpf, vinculo, idUnidade, idCurso, email, password);
+                                                    call.enqueue(new Callback<UserResponse>() {
+                                                        @Override
+                                                        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                                                            if (response.isSuccessful()) {
+                                                                if (response.code() == 201) {
+                                                                    DefaultResponse dr = response.body();
+                                                                    Toast.makeText(CadastrarDiscenteActivity.this, dr.getMessage(), Toast.LENGTH_LONG).show();
+                                                                    System.out.println(dr.getMessage());
+                                                                    startActivity(new Intent(CadastrarDiscenteActivity.this, LoginActivity.class));
+                                                                    finish();
+                                                                } else if (response.code() == 500) {
+                                                                    Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                                    System.out.println("1");
+                                                                }
+                                                            } else {
                                                                 Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                                startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
+                                                                System.out.println("2");
+
                                                             }
-                                                        }else{
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<UserResponse> call, Throwable t) {
+                                                            System.out.println("onFailure");
                                                             Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                            System.out.println("3");
+                                                            startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
 
                                                         }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<UserResponse> call, Throwable t) {
-                                                        System.out.println("onFailure");
-                                                        Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
-                                                        startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
-
-                                                    }
-                                                });
+                                                    });
 
 
+                                                } else {
+                                                    Toast.makeText(CadastrarDiscenteActivity.this, "As senhas devem ser iguais", Toast.LENGTH_SHORT).show();
+                                                }
                                             } else {
-                                                Toast.makeText(CadastrarDiscenteActivity.this, "As senhas devem ser iguais", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(CadastrarDiscenteActivity.this, "Confirme a senha", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
-                                            Toast.makeText(CadastrarDiscenteActivity.this, "Confirme a senha", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CadastrarDiscenteActivity.this, "Informe a senha", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
-                                        Toast.makeText(CadastrarDiscenteActivity.this, "Informe a senha", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CadastrarDiscenteActivity.this, "Preencha o campo e-mail", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
-                                    Toast.makeText(CadastrarDiscenteActivity.this, "Preencha o campo e-mail", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CadastrarDiscenteActivity.this, "Formato de e-mail inválido", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(CadastrarDiscenteActivity.this, "Selecione o cursos", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CadastrarDiscenteActivity.this, "Selecione o curso", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(CadastrarDiscenteActivity.this, "Selecione a unidade acadêmica", Toast.LENGTH_SHORT).show();

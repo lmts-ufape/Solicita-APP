@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.solicita.R;
 import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.helper.SharedPrefManager;
+import com.solicita.helper.ValidacaoEmail;
 import com.solicita.model.User;
 import com.solicita.network.ApiClient;
 import com.solicita.network.ApiInterface;
@@ -74,32 +75,50 @@ public class EditarPerfilActivity extends AppCompatActivity {
     }
     public void editarPerfil(){
 
+        ValidacaoEmail validacaoEmail = new ValidacaoEmail();
+
         String name = editNomePerfil.getText().toString();
         String email = editEmailPerfil.getText().toString();
 
-        Call<DefaultResponse> userResponseCall = apiInterface.postEdit(name, email, sharedPrefManager.getSPToken());
-        userResponseCall.enqueue(new Callback<DefaultResponse>() {
-            @Override
-            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                if (response.code()==200){
-                    DefaultResponse dr = response.body();
-                    Toast.makeText(EditarPerfilActivity.this, dr.getMessage(), Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(EditarPerfilActivity.this, InformacoesDiscenteActivity.class));
-                    finish();
+        if (!name.isEmpty()) {
+            if (!email.isEmpty()){
+                if (validacaoEmail.isValidEmailAddressRegex(email)) {
 
-                }else {
+                String primeiroNome = name;
+                String[] s = primeiroNome.trim().split(" ");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_NOME, s[0]);
 
-                    Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(EditarPerfilActivity.this, LoginActivity.class));
+                Call<DefaultResponse> userResponseCall = apiInterface.postEdit(name, email, sharedPrefManager.getSPToken());
+                userResponseCall.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        if (response.code()==200){
+                            DefaultResponse dr = response.body();
+                            Toast.makeText(EditarPerfilActivity.this, dr.getMessage(), Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(EditarPerfilActivity.this, InformacoesDiscenteActivity.class));
+                            finish();
+                        }else {
 
+                            Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(EditarPerfilActivity.this, LoginActivity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+                    }
+                });
+
+                } else {
+                    Toast.makeText(EditarPerfilActivity.this, "Formato de e-mail inválido", Toast.LENGTH_SHORT).show();
                 }
+            }else{
+                Toast.makeText(EditarPerfilActivity.this, "O campo e-mail não pode estar vazio.", Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void onFailure(Call<DefaultResponse> call, Throwable t) {
-
-            }
-        });
+        }else{
+            Toast.makeText(EditarPerfilActivity.this, "O campo nome não pode estar vazio.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void inicializarComponentes(){
