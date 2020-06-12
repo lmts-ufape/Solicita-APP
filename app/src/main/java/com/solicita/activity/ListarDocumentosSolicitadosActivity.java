@@ -46,6 +46,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.solicita.R.*;
+import static com.solicita.R.string.*;
+
 public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
     //RecyclerView
@@ -101,7 +104,7 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_documetos_solicitados);
+        setContentView(layout.activity_listar_documetos_solicitados);
 
         sharedPrefManager = new SharedPrefManager(this);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -140,17 +143,17 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(ListarDocumentosSolicitadosActivity.this).create();
 
-                View mView = getLayoutInflater().inflate(R.layout.dialog_info_solicitacoes, null);
+                View mView = getLayoutInflater().inflate(layout.dialog_info_solicitacoes, null);
 
-                TextView tvID =  mView.findViewById(R.id.tvID);
-                TextView tvCurso =  mView.findViewById(R.id.tvCurso);
-                TextView tvData =  mView.findViewById(R.id.tvData);
-                TextView tvDocumentos =  mView.findViewById(R.id.tvDocumentos);
-                TextView tvStatus =  mView.findViewById(R.id.tvStatus);
-                TextView tvDetalhes =  mView.findViewById(R.id.tvDetalhes);
-                TextView textViewDetalhes =  mView.findViewById(R.id.textViewDetalhes);
-                Button buttonOk = mView.findViewById(R.id.buttonOk);
-                Button buttonExcluir = mView.findViewById(R.id.buttonExcluir);
+                TextView tvID =  mView.findViewById(id.tvID);
+                TextView tvCurso =  mView.findViewById(id.tvCurso);
+                TextView tvData =  mView.findViewById(id.tvData);
+                TextView tvDocumentos =  mView.findViewById(id.tvDocumentos);
+                TextView tvStatus =  mView.findViewById(id.tvStatus);
+                TextView tvDetalhes =  mView.findViewById(id.tvDetalhes);
+                TextView textViewDetalhes =  mView.findViewById(id.textViewDetalhes);
+                Button buttonOk = mView.findViewById(id.buttonOk);
+                Button buttonExcluir = mView.findViewById(id.buttonExcluir);
 
                 tvID.setText(solicitacoes.getId());
                 tvCurso.setText(solicitacoes.getCurso());
@@ -179,15 +182,15 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
                         AlertDialog dialogExluirPerfil = new AlertDialog.Builder(ListarDocumentosSolicitadosActivity.this).create();
 
-                        View mView2 = getLayoutInflater().inflate(R.layout.dialog_confirmacao, null);
+                        View mView2 = getLayoutInflater().inflate(layout.dialog_confirmacao, null);
 
-                        TextView tvTitulo = mView2.findViewById(R.id.tvTitulo);
-                        TextView tvMensagem = mView2.findViewById(R.id.tvMensagem);
-                        Button buttonConfirmar = mView2.findViewById(R.id.buttonConfirmar);
-                        Button buttonCancelar = mView2.findViewById(R.id.buttonCancelar);
+                        TextView tvTitulo = mView2.findViewById(id.tvTitulo);
+                        TextView tvMensagem = mView2.findViewById(id.tvMensagem);
+                        Button buttonConfirmar = mView2.findViewById(id.buttonConfirmar);
+                        Button buttonCancelar = mView2.findViewById(id.buttonCancelar);
 
-                        tvTitulo.setText("Exclusão de Requisição");
-                        tvMensagem.setText("Deseja excluir a requisição selecionada?");
+                        tvTitulo.setText(titulo_exclusao_requisicao);
+                        tvMensagem.setText(message_exclusao_requisicao);
 
                         dialogExluirPerfil.setView(mView2);
 
@@ -492,11 +495,11 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
     }
 
     public void inicializarComponentes() {
-        recyclerRequisicoes = findViewById(R.id.recyclerRequisicoes);
-        buttonLogout = findViewById(R.id.buttonLogout);
-        buttonHome = findViewById(R.id.buttonHome);
-        textNomeUsuario = findViewById(R.id.textNomeUsuario);
-        buttonVoltar = findViewById(R.id.buttonVoltar);
+        recyclerRequisicoes = findViewById(id.recyclerRequisicoes);
+        buttonLogout = findViewById(id.buttonLogout);
+        buttonHome = findViewById(id.buttonHome);
+        textNomeUsuario = findViewById(id.textNomeUsuario);
+        buttonVoltar = findViewById(id.buttonVoltar);
 
 
     }

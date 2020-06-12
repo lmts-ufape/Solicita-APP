@@ -34,6 +34,8 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
 
     ApiInterface apiInterface;
 
+    ArrayList listaDocsSolicitados = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,14 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
         String hora = dados.getString("hora");
         ArrayList solicitados = (ArrayList<String>) dados.getSerializable("solicitados");
 
-        String convert = solicitados.toString().replace("[", " ").replace("]", "").replace(",", "\n\n");
+        listaDocsSolicitados = new ArrayList<>();
+
+        for (int i=0; i<solicitados.size(); i++){
+            String documentosSol = "\u2022 " + solicitados.get(i).toString();
+            listaDocsSolicitados.add(documentosSol);
+        }
+
+        String convert = listaDocsSolicitados.toString().replace("[", " ").replace("]", "").replace(",", "\n");
 
         for(int i=0; i<solicitados.size(); i++){
             System.out.println(solicitados.get(i));
@@ -76,7 +85,7 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
         //Configura valores recuperados
 
         textProtNome.setText(sharedPrefManager.getSPNome());
-        textProtData.setText(novaData + " " + hora);
+        textProtData.setText(novaData + ", " + hora);
         textProtDocumentos.setText(convert);
         textProtCurso.setText(curso);
         textProtVinculo.setText(situacao);
