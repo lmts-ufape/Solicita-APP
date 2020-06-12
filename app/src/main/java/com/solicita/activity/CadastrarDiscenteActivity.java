@@ -323,7 +323,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                                                                     System.out.println("1");
                                                                 }
                                                             } else {
-                                                                Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                                Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! CPF ou e-mail já cadastrados.", Toast.LENGTH_LONG).show();
                                                                 startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
                                                                 System.out.println("2");
 

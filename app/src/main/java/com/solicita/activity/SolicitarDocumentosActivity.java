@@ -69,7 +69,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
     TextView textNomeUsuario;
 
-    Button buttonLogout, buttonHome;
+    Button buttonLogout, buttonHome, buttonCancelar;
 
     private int index;
     String idPerfil = "";
@@ -106,6 +106,8 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(v -> logoutApp());
 
         buttonSolicitar.setOnClickListener(v -> finalizarSolicitacao());
+
+        buttonCancelar.setOnClickListener(v-> irHome());
     }
 
     public void finalizarSolicitacao(){
@@ -444,6 +446,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         textNomeUsuario = findViewById(R.id.textNomeUsuario);
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonHome = findViewById(R.id.buttonHome);
+        buttonCancelar = findViewById(R.id.buttonCancelar);
 
     }
 }
