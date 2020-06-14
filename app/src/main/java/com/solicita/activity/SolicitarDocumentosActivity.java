@@ -107,12 +107,12 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
         buttonSolicitar.setOnClickListener(v -> finalizarSolicitacao());
 
-        buttonCancelar.setOnClickListener(v-> irHome());
+        buttonCancelar.setOnClickListener(v -> irHome());
     }
 
-    public void finalizarSolicitacao(){
+    public void finalizarSolicitacao() {
 
-        String defaultt=idPerfil;
+        String defaultt = idPerfil;
 
         Call<SolicitacaoResponse> solicitacaoResponseCall = apiInterface.postSolicitacao(defaultt, declaracaoVinculo, comprovanteMatricula, historico, programaDisciplina, outros, requisicaoPrograma, requisicaoOutros, sharedPrefManager.getSPToken());
 
@@ -121,7 +121,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SolicitacaoResponse> call, Response<SolicitacaoResponse> response) {
 
-                if(response.code()==200){
+                if (response.code() == 200) {
 
                     Perfil perfil = response.body().getPerfil();
                     Requisicao requisicao = response.body().getRequisicao();
@@ -144,13 +144,14 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                     startActivity(abrirProtocolo);
 
-                }else {
+                } else {
 
                     Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SolicitarDocumentosActivity.this, LoginActivity.class));
 
                 }
             }
+
             @Override
             public void onFailure(Call<SolicitacaoResponse> call, Throwable t) {
 
@@ -187,6 +188,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                             }
                         }
+
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             System.out.println("onResponse");
@@ -200,6 +202,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 System.out.println("Falha getUserPerfil");
@@ -239,7 +242,8 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                 EditText editText = new EditText(context);
 
-                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")){
+              //  if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
+                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
 
                     editText.setTextSize(18);
                     editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -250,92 +254,95 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
                     int valor = buttonView.getId();
 
-                    if(isChecked && valor==0){
-                        declaracaoVinculo="1";
+                    if (isChecked && valor == 0) {
+                        declaracaoVinculo = "1";
                         solicitados.add(buttonView.getText().toString());
                         System.out.println(solicitados);
-                    }
-
-                    else if(isChecked && valor==1){
-                        comprovanteMatricula="1";
+                    } else if (isChecked && valor == 1) {
+                        comprovanteMatricula = "1";
                         solicitados.add(buttonView.getText().toString());
                         System.out.println(solicitados);
-                    }
-                    else if(isChecked && valor==2){
-                        historico="1";
+                    } else if (isChecked && valor == 2) {
+                        historico = "1";
                         solicitados.add(buttonView.getText().toString());
                         System.out.println(solicitados);
-                    }
-                    else if(isChecked&&valor==3){
-                        solicitados.add(buttonView.getText().toString());
-                        System.out.println(solicitados);
-                        programaDisciplina="1";
-                        editText.setVisibility(View.VISIBLE);
-                        editText.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    } else if (isChecked && valor == 3) {
+                            solicitados.add(buttonView.getText().toString());
+                            System.out.println(solicitados);
+                            programaDisciplina = "1";
+                            editText.setVisibility(View.VISIBLE);
+                            editText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                            }
+                                }
 
-                            @Override
-                            public void afterTextChanged(Editable s) {
-                                requisicaoPrograma=editText.getText().toString();
-                                System.out.println("Valor da string: "+requisicaoPrograma);
-                            }
-                        });
-                    }
-                    else if(isChecked && valor==4){
-                        solicitados.add(buttonView.getText().toString());
-                        System.out.println(solicitados);
-                        outros="1";
-                        editText.setVisibility(View.VISIBLE);
-                        editText.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                @Override
+                                public void afterTextChanged(Editable s) {
+                                    requisicaoPrograma = editText.getText().toString();
+                                    if (requisicaoPrograma.equals("")){
+                                        Toast.makeText(getApplicationContext(), "Informe o nome da disciplina e a finalidade.", Toast.LENGTH_LONG).show();
+                                        programaDisciplina = "0";
+                                    }
+                                    System.out.println("Valor da string: " + requisicaoPrograma);
+                                }
+                            });
+                    } else if (isChecked && valor == 4) {
+                            solicitados.add(buttonView.getText().toString());
+                            System.out.println(solicitados);
+                            outros = "1";
+                            editText.setVisibility(View.VISIBLE);
+                            editText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                            }
+                                }
 
-                            @Override
-                            public void afterTextChanged(Editable s) {
-                                requisicaoOutros=editText.getText().toString();
-                                System.out.println("Valor campo outros: "+ requisicaoOutros);
-                            }
-                        });
-                    }
+                                @Override
+                                public void afterTextChanged(Editable s) {
+                                    requisicaoOutros = editText.getText().toString();
 
-                    else{
-                        if (!isChecked && valor==0){
+                                    if (requisicaoOutros.equals("")){
+                                        Toast.makeText(getApplicationContext(), "Informe o nome da disciplina e a finalidade.", Toast.LENGTH_LONG).show();
+                                        outros = "0";
+                                    }
+
+                                    System.out.println("Valor campo outros: " + requisicaoOutros);
+                                }
+                            });
+                    } else {
+                        if (!isChecked && valor == 0) {
                             declaracaoVinculo = "";
                             solicitados.remove(buttonView.getText().toString());
                             System.out.println(solicitados);
                         }
-                        if (!isChecked && valor==1){
+                        if (!isChecked && valor == 1) {
                             comprovanteMatricula = "";
                             solicitados.remove(buttonView.getText().toString());
                             System.out.println(solicitados);
                         }
-                        if (!isChecked && valor==2){
+                        if (!isChecked && valor == 2) {
                             historico = "";
                             solicitados.remove(buttonView.getText().toString());
                             System.out.println(solicitados);
                         }
-                        if (!isChecked && valor==3) {
+                        if (!isChecked && valor == 3) {
                             editText.setVisibility(View.GONE);
                             programaDisciplina = "";
                             solicitados.remove(buttonView.getText().toString());
                             System.out.println(solicitados);
                         }
-                        if (!isChecked && valor==4){
+                        if (!isChecked && valor == 4) {
                             editText.setVisibility(View.GONE);
                             outros = "";
                             solicitados.remove(buttonView.getText().toString());
@@ -373,7 +380,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
             }
             for (int i = 0; i < perfilArrayList.size(); i++) {
                 perfilId.add(perfilArrayList.get(i).getId());
-                System.out.println("ID do perfil: "+perfilId);
+                System.out.println("ID do perfil: " + perfilId);
             }
 
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(SolicitarDocumentosActivity.this, simple_spinner_item, perfil);
@@ -384,16 +391,16 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     index = parent.getSelectedItemPosition();
-                  //  index++;
+                    //  index++;
                     //idPerfil = index;
 
-                            //if (perfilArrayList.get(index).getId().equals(index)){
-                                 idPerfil = perfilArrayList.get(index).getId();
+                    //if (perfilArrayList.get(index).getId().equals(index)){
+                    idPerfil = perfilArrayList.get(index).getId();
 
-                                System.out.println("ID Selecionado: "+ idPerfil);
+                    System.out.println("ID Selecionado: " + idPerfil);
 
-                           // }
-                        }
+                    // }
+                }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
@@ -406,6 +413,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     public void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
@@ -429,11 +437,13 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         });
 
     }
-    public void irHome(){
+
+    public void irHome() {
         startActivity(new Intent(SolicitarDocumentosActivity.this, HomeAlunoActivity.class));
 
     }
-    public void clickBotaoHomeUfape(){
+
+    public void clickBotaoHomeUfape() {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

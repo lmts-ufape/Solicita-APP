@@ -21,6 +21,9 @@ public class User {
     @SerializedName("cursos") String cursos;
     @Expose
     @SerializedName("token") String token;
+    @Expose
+    @SerializedName("tipo") String tipo;
+
 
     //private String login, token, CPF, tipoVinculo, unidadeAcademica, tipoCurso, senha, confirmarSenha;
     private String atual, password, confirm_password, login;
@@ -122,5 +125,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

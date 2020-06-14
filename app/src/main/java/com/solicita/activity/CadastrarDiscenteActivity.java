@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -63,6 +64,8 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
     String idUnidade;
     String idCurso;
     GoogleApiClient googleApiClient;
+    ProgressDialog progressDialog;
+
 
     String SiteKey = "6LcgPvsUAAAAADb-PsgvX4Q7WJQQvtM1mLE6njKR";
 
@@ -75,6 +78,11 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         inicializarComponentes();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCancelable(false);
+
         buscarJSON();
 
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -256,6 +264,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
 
     public void cadastrar() {
 
+
         String name = campoNome.getText().toString();
         String cpf = campoCPF.getText().toString();
         String vinculo = spinnerVinculo.getSelectedItem().toString();
@@ -307,23 +316,27 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                                             if (!confirm_password.isEmpty()) {//verifica confirmacao de senha
                                                 if (password.equals(confirm_password)) {
 
+                                                    progressDialog.show();
+
                                                     call = apiInterface.postCadastro(name, cpf, vinculo, idUnidade, idCurso, email, password);
                                                     call.enqueue(new Callback<UserResponse>() {
                                                         @Override
                                                         public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                                                            progressDialog.dismiss();
                                                             if (response.isSuccessful()) {
+                                                                DefaultResponse dr = response.body();
                                                                 if (response.code() == 201) {
-                                                                    DefaultResponse dr = response.body();
+
                                                                     Toast.makeText(CadastrarDiscenteActivity.this, dr.getMessage(), Toast.LENGTH_LONG).show();
                                                                     System.out.println(dr.getMessage());
                                                                     startActivity(new Intent(CadastrarDiscenteActivity.this, LoginActivity.class));
                                                                     finish();
-                                                                } else if (response.code() == 500) {
-                                                                    Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                                } else {
+                                                                    Toast.makeText(CadastrarDiscenteActivity.this, dr.getError(), Toast.LENGTH_LONG).show();
                                                                     System.out.println("1");
                                                                 }
                                                             } else {
-                                                                Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! CPF ou e-mail já cadastrados.", Toast.LENGTH_LONG).show();
+                                                                Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro.", Toast.LENGTH_LONG).show();
                                                                 startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
                                                                 System.out.println("2");
 
@@ -333,7 +346,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                                                         @Override
                                                         public void onFailure(Call<UserResponse> call, Throwable t) {
                                                             System.out.println("onFailure");
-                                                            Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro! Verifique os dados e tente novamente.", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(CadastrarDiscenteActivity.this, "Erro ao realizar cadastro.", Toast.LENGTH_LONG).show();
                                                             System.out.println("3");
                                                             startActivity(new Intent(CadastrarDiscenteActivity.this, CadastrarDiscenteActivity.class));
 

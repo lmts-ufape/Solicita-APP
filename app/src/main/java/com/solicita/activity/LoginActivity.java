@@ -98,17 +98,23 @@ public class LoginActivity extends AppCompatActivity {
                         User user = response.body().getUser();
                         DefaultResponse dr = response.body();
 
-                        String primeiroNome = user.getName();
-                        String[] s = primeiroNome.trim().split(" ");
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NOME, s[0]);
-                        //sharedPrefManager.saveSPString(SharedPrefManager.SP_NOME, user.getName());
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN, "Bearer " +response.body().getToken());
-                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, true);
-                        Toast.makeText(context, dr.getMessage(), Toast.LENGTH_SHORT).show();
-                        System.out.println("Mensagem: " + dr.getMessage());
-                        startActivity(new Intent(context, HomeAlunoActivity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                        finish();
+                        if (user.getTipo().equals("aluno")){
+
+                            String primeiroNome = user.getName();
+                            String[] s = primeiroNome.trim().split(" ");
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_NOME, s[0]);
+                            //sharedPrefManager.saveSPString(SharedPrefManager.SP_NOME, user.getName());
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN, "Bearer " +response.body().getToken());
+                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, true);
+                            Toast.makeText(context, dr.getMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println("Mensagem: " + dr.getMessage());
+                            startActivity(new Intent(context, HomeAlunoActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            finish();
+
+                        }else{
+                            Toast.makeText(context, "Usuário não cadastrado como aluno.", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         DefaultResponse dr = response.body();
                         System.out.println("Mensagem: " + dr.getMessage());
