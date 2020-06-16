@@ -155,6 +155,11 @@ public class AlterarSenhaActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
+    public void clickBotaoHomeUfape(View view){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
     public void irHome(){
         startActivity(new Intent(AlterarSenhaActivity.this, HomeAlunoActivity.class));
 

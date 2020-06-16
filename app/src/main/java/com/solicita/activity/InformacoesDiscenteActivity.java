@@ -521,4 +521,9 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
+
+    public void clickBotaoHomeUfape(View view){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
 }

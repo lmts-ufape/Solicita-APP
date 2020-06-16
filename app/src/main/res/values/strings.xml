@@ -51,7 +51,7 @@
     <string name="button_cadastro">Cadastrar</string>
     <string name="button_solicitar_documentos">Solicitar Documentos</string>
     <string name="button_listar_documentos_solicitados">Listar Documentos Solicitados</string>
-    <string name="button_perfil">Perfil</string>
+    <string name="button_perfil">Adicionar/Editar Perfil</string>
     <string name="button_adicionar_perfil">Adicionar perfil</string>
     <string name="button_excluir_perfil">Excluir perfil</string>
     <string name="button_editar_perfil">Editar perfil</string>

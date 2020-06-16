@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
 import com.solicita.activity.ufape.MainActivityUfape;
-import com.solicita.activity.ufape.inicio.InicioActivityPrincipal;
-import com.solicita.activity.ufape.inicio.inicio.InicioActivity;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.network.ApiClient;
 import com.solicita.network.ApiInterface;
@@ -65,13 +63,17 @@ public class HomeAlunoActivity extends AppCompatActivity {
 
             }
         });
-
     }
     public void irHome(){
        // startActivity(new Intent(HomeAlunoActivity.this, HomeAlunoActivity.class));
 
     }
     public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
+    public void clickBotaoHomeUfape(View view){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
