@@ -34,20 +34,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.CadastrarDiscenteActivity" />
-        <activity android:name=".activity.SolicitarDocumentosActivity" />
-        <activity android:name=".activity.ConfirmacaoRequisicaoActivity" />
-        <activity android:name=".activity.ListarDocumentosSolicitadosActivity" />
-        <activity android:name=".activity.AdicionarPerfilActivity" />
-        <activity android:name=".activity.RedefinirSenhaActivity" />
-        <activity android:name=".activity.InformacoesDiscenteActivity" />
-        <activity android:name=".activity.HomeAlunoActivity" />
-        <activity android:name=".activity.EditarPerfilActivity" />
-        <activity android:name=".activity.AlterarSenhaActivity" />
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CadastrarDiscenteActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SolicitarDocumentosActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ConfirmacaoRequisicaoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ListarDocumentosSolicitadosActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AdicionarPerfilActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RedefinirSenhaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.InformacoesDiscenteActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.HomeAlunoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditarPerfilActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AlterarSenhaActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="sensor"></activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ufape.MainActivityUfape"
             android:launchMode="singleTop">

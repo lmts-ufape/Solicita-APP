@@ -108,16 +108,13 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         buttonSolicitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (declaracaoVinculo !="1" && comprovanteMatricula  !="1" && historico  !="1" && programaDisciplina  !="1" && outros !="1"){
+                if (declaracaoVinculo != "1" && comprovanteMatricula != "1" && historico != "1" && programaDisciplina != "1" && outros != "1") {
                     Toast.makeText(getApplicationContext(), "Selecione pelo menos um documento.", Toast.LENGTH_LONG).show();
-                }
-                else if ((programaDisciplina.equals("1") && requisicaoPrograma.equals("")) || ((outros.equals("1") && requisicaoOutros.equals("")))){
+                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.equals("")) || ((outros.equals("1") && requisicaoOutros.equals("")))) {
                     Toast.makeText(getApplicationContext(), "Preencha o campo com as informações relativas à disciplina e a finalidade do pedido.", Toast.LENGTH_LONG).show();
-                }
-                else if ((programaDisciplina.equals("1") && requisicaoPrograma.length()>190) || (outros.equals("1") && requisicaoOutros.length()>190)){
+                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.length() > 190) || (outros.equals("1") && requisicaoOutros.length() > 190)) {
                     Toast.makeText(getApplicationContext(), "O campo só pode ter no máximo 190 caracteres.", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     finalizarSolicitacao();
                 }
             }
@@ -255,11 +252,11 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 checkBox.setText(documento.get(i));
                 linearLayout.addView(checkBox);
 
-              //  EditText editText = new EditText(context);
+                //  EditText editText = new EditText(context);
                 EditText editText = new EditText(context);
 
-                //  if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
-                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
+                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
+                    // if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
                     editText.setTextSize(18);
                     editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     editText.setVisibility(View.GONE);
@@ -308,7 +305,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                                 System.out.println("Programa de disciplina: " + requisicaoPrograma);
                             }
                         });
-                        if (requisicaoPrograma.isEmpty()){
+                        if (requisicaoPrograma.isEmpty()) {
                             editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido");
                             editText.requestFocus();
                             return;
@@ -467,7 +464,8 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         startActivity(new Intent(SolicitarDocumentosActivity.this, HomeAlunoActivity.class));
 
     }
-    public void clickBotaoHomeUfape(){
+
+    public void clickBotaoHomeUfape() {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
