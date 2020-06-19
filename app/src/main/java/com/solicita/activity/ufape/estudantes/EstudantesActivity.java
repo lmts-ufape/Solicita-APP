@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.solicita.R;
+import com.solicita.activity.ufape.links.estudantes.LinksEstudantes;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,23 +29,26 @@ public class EstudantesActivity extends Fragment {
 
         View root = inflater.inflate(R.layout.activity_ufape_estudantes, container, false);
 
-        LinearLayout botao_anexos = (LinearLayout) root.findViewById(R.id.botao_anexos);
-        botao_anexos.setOnClickListener(clickBotaoAnexos);
+        LinearLayout botao_formas_ingressos = (LinearLayout) root.findViewById(R.id.botao_formas_ingresso);
+        botao_formas_ingressos.setOnClickListener(clickBotaoFormasIngressos);
 
-        LinearLayout botao_editais = (LinearLayout) root.findViewById(R.id.botao_editais);
+        LinearLayout botao_assistencia_estudantil = (LinearLayout) root.findViewById(R.id.botao_assistencia_estudantil);
+        botao_assistencia_estudantil.setOnClickListener(clickBotaoAssistenciaEstudantil);
+
+        LinearLayout botao_editais = (LinearLayout) root.findViewById(R.id.botao_estudantes_editais);
         botao_editais.setOnClickListener(clickBotaoEditais);
 
-        LinearLayout botao_formulario = (LinearLayout) root.findViewById(R.id.botao_formulario_psicologico);
-        botao_formulario.setOnClickListener(clickBotaoFormularioPsicologico);
+        LinearLayout botao_escolaridade = (LinearLayout) root.findViewById(R.id.botao_escolaridade);
+        botao_escolaridade.setOnClickListener(clickBotaoEscolaridade);
 
-        LinearLayout botao_incricoes = (LinearLayout) root.findViewById(R.id.botao_inscricoes_online);
-        botao_incricoes.setOnClickListener(clickBotaoInscricoesOnLine);
+        LinearLayout botao_estagios = (LinearLayout) root.findViewById(R.id.botao_estagios);
+        botao_estagios.setOnClickListener(clickBotaoEstagios);
 
-        LinearLayout botao_resolucoes = (LinearLayout) root.findViewById(R.id.botao_resolucoes);
-        botao_resolucoes.setOnClickListener(clickBotaoResolucoes);
+        LinearLayout botao_horario_letivo = (LinearLayout) root.findViewById(R.id.botao_horario_letivo);
+        botao_horario_letivo.setOnClickListener(clickBotaoHorarioLetivo);
 
-        LinearLayout botao_resultados= (LinearLayout) root.findViewById(R.id.botao_resultados);
-        botao_resultados.setOnClickListener(clickBotaoResultados);
+        LinearLayout botao_egressos = (LinearLayout) root.findViewById(R.id.botao_egressos);
+        botao_egressos.setOnClickListener(clickBotaoEgressos);
 
         return root;
     }
@@ -56,51 +60,45 @@ public class EstudantesActivity extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    private View.OnClickListener clickBotaoAnexos = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoFormasIngressos = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/content/anexos");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkFormasIngresso(getContext());
+        }
+    };
+
+    private View.OnClickListener clickBotaoAssistenciaEstudantil = new View.OnClickListener() {
+        public void onClick(View v) {
+            LinksEstudantes.getLinksInstitucional().abrirLinkAssistenciaEstudantil(getContext());
         }
     };
 
     private View.OnClickListener clickBotaoEditais = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/content/editais");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkEditais(getContext());
         }
     };
 
-    private View.OnClickListener clickBotaoFormularioPsicologico = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoEscolaridade = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/content/atendimento-psicol%C3%B3gico-online");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkEscolaridade(getContext());
         }
     };
 
-    private View.OnClickListener clickBotaoInscricoesOnLine = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoEstagios = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://www.progesti.ufrpe.br/br/inscricao-online-progesti#");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkEstagios(getContext());
         }
     };
 
-    private View.OnClickListener clickBotaoResolucoes = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoHorarioLetivo = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/content/resolu%C3%A7%C3%B5es");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkHorarioLetivo(getContext());
         }
     };
 
-    private View.OnClickListener clickBotaoResultados = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoEgressos = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/content/resultados");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksEstudantes.getLinksInstitucional().abrirLinkEgressos(getContext());
         }
     };
 }

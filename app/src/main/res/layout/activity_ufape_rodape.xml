@@ -14,10 +14,11 @@
         />
 
     <TextView
+        android:onClick="clickLinkLMTS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Aplicativo desenvolvido pelo LMTS"
+        android:text="Aplicativo desenvolvido pelo Laboratório Multidisciplinar de Tecnologia Sociais"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="15dp"
         android:fontFamily="sans-serif"
