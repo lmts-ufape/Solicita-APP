@@ -35,10 +35,6 @@ public class InicioActivity  extends Fragment {
         return new InicioActivity();
     }
 
-    public InicioActivity(){
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -136,11 +132,11 @@ public class InicioActivity  extends Fragment {
 
         ArrayList<LinearLayout> layouts = new ArrayList<LinearLayout>();
 
-        layouts.add(montarElementoLinearLayoutInicio("A UFAPE", R.drawable.ufape_logo2, true));
+        layouts.add(montarElementoLinearLayoutInicio("Institucional", R.drawable.ufape_logo2, true));
         layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaAUfape();
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaInstitucional();
             }
         });
 
@@ -152,19 +148,7 @@ public class InicioActivity  extends Fragment {
             }
         });
 
-        layouts.add(montarElementoLinearLayoutInicio("Editais", R.string.fa_file, false));
-        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/editais");
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
-                startActivity(intent);
-            }
-        });
-
-        layouts.add(montarElementoLinearLayoutInicio("Cursos", R.string.fa_graduation_cap_solid, false));
+        layouts.add(montarElementoLinearLayoutInicio("Ensino", R.string.fa_graduation_cap_solid, false));
         layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,11 +156,19 @@ public class InicioActivity  extends Fragment {
             }
         });
 
-        layouts.add(montarElementoLinearLayoutInicio("Serviços", R.string.fa_tools_solid, false));
+        layouts.add(montarElementoLinearLayoutInicio("Pesquisa e Inovação", R.string.fa_search_solid, false));
         layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivityUfape.getMainActivityUfape().clickBotaoRodapeServicos();
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaPesquisaInovacao();
+            }
+        });
+
+        layouts.add(montarElementoLinearLayoutInicio("Extensão", R.string.fa_globe_solid, false));
+        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaExtensao();
             }
         });
 
@@ -185,6 +177,38 @@ public class InicioActivity  extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivityUfape.getMainActivityUfape().clickBotaoRodapeEstudantes();
+            }
+        });
+
+        layouts.add(montarElementoLinearLayoutInicio("Concursos", R.string.fa_file, false));
+        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaConcursos();
+            }
+        });
+
+        layouts.add(montarElementoLinearLayoutInicio("Publicações", R.string.fa_book_solid, false));
+        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaPublicacoes();
+            }
+        });
+
+        layouts.add(montarElementoLinearLayoutInicio("Comunicação", R.string.fa_pager_solid, false));
+        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaComunicacao();
+            }
+        });
+
+        layouts.add(montarElementoLinearLayoutInicio("Serviços", R.string.fa_tools_solid, false));
+        layouts.get(layouts.size() - 1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivityUfape.getMainActivityUfape().clickBotaoRodapeServicos();
             }
         });
 

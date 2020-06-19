@@ -31,7 +31,7 @@ public class ServicosActivityPrincipal extends Fragment {
 
         View root = inflater.inflate(R.layout.activity_ufape_servicos_principal, container, false);
 
-        abrirTelas();
+        abrirTelaInicio();
 
         return root;
     }
@@ -41,26 +41,20 @@ public class ServicosActivityPrincipal extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private static int tela_aberta = -1;
-
-    public void abrirTelas(){
-        if(tela_aberta == 1)
-            abrirTelaContato();
-        else
-            abrirTelaInicio();
-    }
-
+    private boolean tela_inicio_aberta = false;
     public void abrirTelaInicio(){
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout_servicos, ServicosActivity.newInstance())
-                .commitNow();
-        tela_aberta = 0;
+        if(!tela_inicio_aberta) {
+            tela_inicio_aberta = true;
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout_servicos, ServicosActivity.newInstance())
+                    .commitNow();
+        }
     }
 
     public void abrirTelaContato(){
+        tela_inicio_aberta = false;
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout_servicos, ContatoActivity.newInstance())
                 .commitNow();
-        tela_aberta = 1;
     }
 }

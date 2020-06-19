@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.solicita.R;
 import com.solicita.activity.ufape.inicio.InicioActivityPrincipal;
+import com.solicita.activity.ufape.links.comunicacao.LinksComunicacao;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,21 +54,13 @@ public class NoticiasComunicadosActivity extends Fragment {
 
     private View.OnClickListener clickNoticias = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/noticias-lista");
-
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
-            startActivity(intent);
+            LinksComunicacao.getLinksInstitucional().abrirLinkNoticias(getContext());
         }
     };
 
     private View.OnClickListener clickComunicados = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/comunicados");
-
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
-            startActivity(intent);
+            LinksComunicacao.getLinksInstitucional().abrirLinkComunicados(getContext());
         }
     };
 }

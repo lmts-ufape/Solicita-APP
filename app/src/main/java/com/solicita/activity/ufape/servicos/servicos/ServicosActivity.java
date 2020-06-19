@@ -12,6 +12,9 @@ import com.solicita.R;
 import com.solicita.activity.LoginActivity;
 import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.activity.ufape.inicio.InicioActivityPrincipal;
+import com.solicita.activity.ufape.links.institucional.LinksInstitucional;
+import com.solicita.activity.ufape.links.publicacoes.LinksPublicacoes;
+import com.solicita.activity.ufape.links.servicos.LinksServicos;
 import com.solicita.activity.ufape.servicos.ServicosActivityPrincipal;
 
 import androidx.annotation.NonNull;
@@ -58,17 +61,13 @@ public class ServicosActivity extends Fragment {
 
     private View.OnClickListener clickBotaoSiga = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("https://www.siga.ufrpe.br/ufrpe/index.jsp");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksServicos.getLinksInstitucional().abrirLinkSiga(getContext());
         }
     };
 
     private View.OnClickListener clickBotaoBiblioteca = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://www.sib.ufrpe.br/biblioteca-uag");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksInstitucional.getLinksInstitucional().abrirLinkBiblioteca(getContext());
         }
     };
 
@@ -86,9 +85,7 @@ public class ServicosActivity extends Fragment {
 
     private View.OnClickListener clickBotaoSubmeta = new View.OnClickListener() {
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://app.uag.ufrpe.br/submeta");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            LinksServicos.getLinksInstitucional().abrirLinkSubmeta(getContext());
         }
     };
 }

@@ -55,8 +55,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:background="#1b2d4f"
-            />
+            android:background="@drawable/ufape_container_texto_sobre"
+
+            >
+
+            <ScrollView
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.bluejamesbond.text.DocumentView
+                    xmlns:ext="http://schemas.android.com/apk/res-auto"
+                    ext:textAlignment="justified"
+                    android:id="@+id/texto_sobre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    ext:textSize="18dp"
+                    ext:textColor="#000000"
+                    ext:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    />
+
+            </ScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

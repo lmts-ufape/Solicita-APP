@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.solicita.activity.LoginActivity;
-import com.solicita.activity.ufape.cursos.CursosActivityPrincipal;
-import com.solicita.activity.ufape.cursos.cursos.CursosActivity;
+import com.solicita.activity.ufape.ensino.CursosActivity;
 import com.solicita.activity.ufape.estudantes.EstudantesActivity;
 import com.solicita.activity.ufape.inicio.InicioActivityPrincipal;
-import com.solicita.activity.ufape.mapa.contato.MapsActivity;
+import com.solicita.activity.ufape.links.institucional.LinksInstitucional;
+import com.solicita.activity.ufape.links.publicacoes.LinksPublicacoes;
+import com.solicita.activity.ufape.links.redes_sociais.LinksRedesSociais;
+import com.solicita.activity.ufape.links.servicos.LinksServicos;
 import com.solicita.activity.ufape.servicos.ServicosActivityPrincipal;
 import com.google.android.material.navigation.NavigationView;
 import com.solicita.R;
-import com.solicita.activity.ufape.servicos.contato.ContatoActivity;
 import com.solicita.activity.ufape.sobre.SobreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,30 +88,27 @@ public class MainActivityUfape extends AppCompatActivity
 
     public void clickBotaoFacebook(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("https://www.facebook.com/ufape.comunica");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksRedesSociais.getLinksInstitucional().abrirLinkFacebook(this);
     }
 
     public void clickBotaoYoutube(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("https://www.youtube.com/channel/UCPGY8eKRMvAqiGaPoQqfOIw");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksRedesSociais.getLinksInstitucional().abrirLinkYoutube(this);
+    }
+
+    public void clickBotaoLinkedin(View view){
+        fecharMenuLateral();
+        LinksRedesSociais.getLinksInstitucional().abrirLinkLinkedin(this);
     }
 
     public void clickBotaoInstagram(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("https://www.instagram.com/ufape.oficial/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksRedesSociais.getLinksInstitucional().abrirLinkInstagram(this);
     }
 
     public void clickBotaoTwitter(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("https://twitter.com/UFAPE_oficial/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksRedesSociais.getLinksInstitucional().abrirLinkTwitter(this);
     }
 
     //endregion
@@ -150,16 +147,12 @@ public class MainActivityUfape extends AppCompatActivity
 
     public void clickBotaoMenuLateralSiga(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("https://www.siga.ufrpe.br/ufrpe/index.jsp");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksServicos.getLinksInstitucional().abrirLinkSiga(this);
     }
 
     public void clickBotaoMenuLateralBiblioteca(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("http://www.sib.ufrpe.br/biblioteca-uag");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksInstitucional.getLinksInstitucional().abrirLinkBiblioteca(this);
     }
 
     public void clickBotaoMenuLateralContato(View view){
@@ -169,11 +162,11 @@ public class MainActivityUfape extends AppCompatActivity
         ServicosActivityPrincipal.getServicosActivityPrincipal().abrirTelaContato();
     }
 
-    public void clickBotaoMenuLateralEditais(View view){
+    public void clickBotaoMenuLateralPublicacoes(View view){
         fecharMenuLateral();
-        Uri uri = Uri.parse("http://ww3.uag.ufrpe.br/editais");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        InicioActivityPrincipal.carrega_tela_inicial = false;
+        mPager.setCurrentItem(0);
+        InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaPublicacoes();
     }
 
     public void clickBotaoMenuLateralSolicita(){
@@ -187,10 +180,7 @@ public class MainActivityUfape extends AppCompatActivity
 
     public void clickBotaoMenuLateralSubmeta(View view){
         fecharMenuLateral();
-        ajustarCorBotoesMenuLateral(view);
-        Uri uri = Uri.parse("http://app.uag.ufrpe.br/submeta");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        LinksServicos.getLinksInstitucional().abrirLinkSubmeta(this);
     }
 
     public void clickBotaoMenuLateralSobre(View view){
@@ -202,6 +192,10 @@ public class MainActivityUfape extends AppCompatActivity
     //endregion
 
     //region Botoes de Rodapé
+
+    public void clickLinkLMTS(View view){
+        LinksServicos.getLinksInstitucional().abrirLinkLMTS(this);
+    }
 
     public void ajustarCorBotoesRodape(){
         try {
@@ -231,11 +225,15 @@ public class MainActivityUfape extends AppCompatActivity
         b.setBackgroundColor(Color.rgb(27,45,79));
     }
 
-    public void clickBotaoRodapeInicio(View view){
+    public void clickBotaoRodapeInicio(){
         /*getSupportFragmentManager().beginTransaction()
                 .replace(R.id.containe, InicioActivityPrincipal.newInstance())
                 .commitNow();*/
         mPager.setCurrentItem(0);
+        InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaInicio();
+    }
+    public void clickBotaoRodapeInicio(View view){
+        clickBotaoRodapeInicio();
     }
 
     public void clickBotaoRodapeCursos(){
@@ -247,6 +245,7 @@ public class MainActivityUfape extends AppCompatActivity
 
     public void clickBotaoRodapeServicos(){
         mPager.setCurrentItem(2);
+        ServicosActivityPrincipal.getServicosActivityPrincipal().abrirTelaInicio();
     }
     public void clickBotaoRodapeServicos(View view){
         clickBotaoRodapeServicos();
@@ -273,7 +272,7 @@ public class MainActivityUfape extends AppCompatActivity
             if(position == 0)
                 return new InicioActivityPrincipal();
             else if(position == 1)
-                return new CursosActivityPrincipal();
+                return new CursosActivity();
             else if(position == 2)
                 return new ServicosActivityPrincipal();
             else if(position == 3)
