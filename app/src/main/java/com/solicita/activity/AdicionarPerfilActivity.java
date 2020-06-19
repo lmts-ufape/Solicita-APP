@@ -332,6 +332,10 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         startActivity(new Intent(AdicionarPerfilActivity.this, HomeAlunoActivity.class));
 
     }
+    public void clickBotaoHomeUfape(View view){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
     public void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

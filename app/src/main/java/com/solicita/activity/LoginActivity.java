@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.solicita.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.solicita.helper.DbHelper;
 import com.solicita.helper.SharedPrefManager;
 import com.solicita.model.User;
 import com.solicita.network.ApiClient;
@@ -40,6 +44,38 @@ public class LoginActivity extends AppCompatActivity {
         context = this;
 
         inicializarComponentes();
+
+        String sql = "SELECT * FROM " + DbHelper.TABELA_USUARIO + " ;";
+        DbHelper db = new DbHelper(getApplicationContext());
+        SQLiteDatabase le = db.getReadableDatabase();
+        Cursor cursor = le.rawQuery("SELECT nome, email, token, status FROM usuario ", null);
+
+        int indiceNome = cursor.getColumnIndex("nome");
+        int indiceEmail = cursor.getColumnIndex("email");
+        int indiceStatus = cursor.getColumnIndex("status");
+        int indiceToken = cursor.getColumnIndex("token");
+
+        if (cursor.moveToFirst()){
+            do {
+                String nome = cursor.getString(indiceNome);
+                String email = cursor.getString(indiceEmail);
+                String status = cursor.getString(indiceStatus);
+                String token = cursor.getString(indiceToken);
+                System.out.println(nome + " " + email + " " + status + " " + token);
+            }while (cursor.moveToNext());
+        }
+
+ /*       cursor.moveToFirst();
+        while (cursor!=null){
+
+            String nome = cursor.getString(indiceNome);
+            System.out.println(nome);
+
+           // Log.i("RESULTADO - nome: " , cursor.getString(indiceEmail));
+            cursor.moveToNext();
+        }*/
+
+        System.out.println("Consulta: " + le.rawQuery("SELECT nome, email, token, status FROM usuario ", null));
 
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override

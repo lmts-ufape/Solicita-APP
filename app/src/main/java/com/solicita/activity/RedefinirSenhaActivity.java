@@ -2,6 +2,7 @@ package com.solicita.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
     Button buttonRedefinirSenha, buttonVoltar, buttonLogout, buttonHome;
     SharedPrefManager sharedPrefManager;
     TextView textNomeUsuario;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_redefinir_senha);
 
         inicializarComponentes();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Carregando...");
+        progressDialog.setCancelable(false);
+
 
         sharedPrefManager = new SharedPrefManager(this);
 
@@ -52,11 +59,14 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
             Toast.makeText(RedefinirSenhaActivity.this, "Preencha o campo e-mail.", Toast.LENGTH_SHORT).show();
         }else {
 
+            progressDialog.show();
+
             Call<DefaultResponse> responseCall = apiInterface.postEsqueciSenha(textEsqueciSenha.getText().toString());
             responseCall.enqueue(new Callback<DefaultResponse>() {
                 @Override
                 public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                     DefaultResponse dr = response.body();
+                    progressDialog.dismiss();
                     if (response.isSuccessful()) {
 
                         if (response.code() == 201) {
@@ -75,7 +85,7 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<DefaultResponse> call, Throwable t) {
-
+                    Toast.makeText(RedefinirSenhaActivity.this, "O e-mail informado não está cadastrado no sistema.", Toast.LENGTH_LONG).show();
                 }
             });
         }

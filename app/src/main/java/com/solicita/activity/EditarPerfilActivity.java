@@ -159,8 +159,12 @@ public class EditarPerfilActivity extends AppCompatActivity {
         startActivity(new Intent(EditarPerfilActivity.this, HomeAlunoActivity.class));
 
     }
-
     public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
+    public void clickBotaoHomeUfape(View view){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

@@ -81,7 +81,6 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
     String cursoP, situacaoP, dataP, horaP;
     String declaracaoVinculo = "", comprovanteMatricula = "", historico = "", programaDisciplina = "", outros = "", requisicaoPrograma = "", requisicaoOutros = "";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +104,21 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
         buttonLogout.setOnClickListener(v -> logoutApp());
 
-        buttonSolicitar.setOnClickListener(v -> finalizarSolicitacao());
-
+        //  buttonSolicitar.setOnClickListener(v -> finalizarSolicitacao());
+        buttonSolicitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (declaracaoVinculo != "1" && comprovanteMatricula != "1" && historico != "1" && programaDisciplina != "1" && outros != "1") {
+                    Toast.makeText(getApplicationContext(), "Selecione pelo menos um documento.", Toast.LENGTH_LONG).show();
+                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.equals("")) || ((outros.equals("1") && requisicaoOutros.equals("")))) {
+                    Toast.makeText(getApplicationContext(), "Preencha o campo com as informações relativas à disciplina e a finalidade do pedido.", Toast.LENGTH_LONG).show();
+                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.length() > 190) || (outros.equals("1") && requisicaoOutros.length() > 190)) {
+                    Toast.makeText(getApplicationContext(), "O campo só pode ter no máximo 190 caracteres.", Toast.LENGTH_LONG).show();
+                } else {
+                    finalizarSolicitacao();
+                }
+            }
+        });
         buttonCancelar.setOnClickListener(v -> irHome());
     }
 
@@ -138,8 +150,8 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                     abrirProtocolo.putExtra("situacao", situacaoP);
                     abrirProtocolo.putExtra("data", dataP);
                     abrirProtocolo.putExtra("hora", horaP);
-
                     abrirProtocolo.putExtra("solicitados", solicitados);
+
                     System.out.println(solicitados);
 
                     startActivity(abrirProtocolo);
@@ -240,11 +252,11 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 checkBox.setText(documento.get(i));
                 linearLayout.addView(checkBox);
 
+                //  EditText editText = new EditText(context);
                 EditText editText = new EditText(context);
 
-              //  if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
-                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
-
+                if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
+                    // if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
                     editText.setTextSize(18);
                     editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     editText.setVisibility(View.GONE);
@@ -267,59 +279,70 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                         solicitados.add(buttonView.getText().toString());
                         System.out.println(solicitados);
                     } else if (isChecked && valor == 3) {
-                            solicitados.add(buttonView.getText().toString());
-                            System.out.println(solicitados);
-                            programaDisciplina = "1";
-                            editText.setVisibility(View.VISIBLE);
-                            editText.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        solicitados.add(buttonView.getText().toString());
+                        System.out.println(solicitados);
+                        programaDisciplina = "1";
+                        editText.setVisibility(View.VISIBLE);
+                        editText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                requisicaoPrograma = editText.getText().toString();
+                                if (requisicaoPrograma.isEmpty()) {
+                                    editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido");
+                                    editText.requestFocus();
+                                    return;
                                 }
+                                System.out.println("Programa de disciplina: " + requisicaoPrograma);
+                            }
+                        });
+                        if (requisicaoPrograma.isEmpty()) {
+                            editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido");
+                            editText.requestFocus();
+                            return;
+                        }
 
-                                @Override
-                                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                                }
-
-                                @Override
-                                public void afterTextChanged(Editable s) {
-                                    requisicaoPrograma = editText.getText().toString();
-                                    if (requisicaoPrograma.equals("")){
-                                        Toast.makeText(getApplicationContext(), "Informe o nome da disciplina e a finalidade.", Toast.LENGTH_LONG).show();
-                                        programaDisciplina = "0";
-                                    }
-                                    System.out.println("Valor da string: " + requisicaoPrograma);
-                                }
-                            });
                     } else if (isChecked && valor == 4) {
-                            solicitados.add(buttonView.getText().toString());
-                            System.out.println(solicitados);
-                            outros = "1";
-                            editText.setVisibility(View.VISIBLE);
-                            editText.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        solicitados.add(buttonView.getText().toString());
+                        System.out.println(solicitados);
+                        outros = "1";
+                        editText.setVisibility(View.VISIBLE);
+                        editText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                requisicaoOutros = editText.getText().toString();
+                                System.out.println("Campo outros: " + requisicaoOutros);
+                                if (requisicaoOutros.isEmpty()) {
+                                    editText.setError("Preencha este campo com as informações referentes ao seu pedido.");
+                                    editText.requestFocus();
+                                    return;
                                 }
-
-                                @Override
-                                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                                }
-
-                                @Override
-                                public void afterTextChanged(Editable s) {
-                                    requisicaoOutros = editText.getText().toString();
-
-                                    if (requisicaoOutros.equals("")){
-                                        Toast.makeText(getApplicationContext(), "Informe o nome da disciplina e a finalidade.", Toast.LENGTH_LONG).show();
-                                        outros = "0";
-                                    }
-
-                                    System.out.println("Valor campo outros: " + requisicaoOutros);
-                                }
-                            });
+                            }
+                        });
+                        if (requisicaoOutros.isEmpty()) {
+                            editText.setError("Preencha este campo com as informações referentes ao seu pedido.");
+                            editText.requestFocus();
+                            return;
+                        }
                     } else {
                         if (!isChecked && valor == 0) {
                             declaracaoVinculo = "";
@@ -435,7 +458,6 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void irHome() {
@@ -444,6 +466,11 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
     }
 
     public void clickBotaoHomeUfape() {
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
+    public void clickBotaoHomeUfape(View view) {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

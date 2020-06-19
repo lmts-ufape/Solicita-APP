@@ -39,5 +39,4 @@ public class SobreActivity extends Activity {
     public void clickBotaoClose(View view){
         finish();
     }
-
 }

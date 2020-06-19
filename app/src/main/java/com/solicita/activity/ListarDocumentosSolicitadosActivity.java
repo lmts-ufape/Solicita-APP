@@ -37,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -157,8 +158,8 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
                 tvID.setText(solicitacoes.getId());
                 tvCurso.setText(solicitacoes.getCurso());
-                String data = solicitacoes.getData_pedido() + ", " + solicitacoes.getHora_pedido();
-                tvData.setText(data);
+                String dataSolic = solicitacoes.getData_pedido() + ", " + solicitacoes.getHora_pedido();
+                tvData.setText(dataSolic);
                 tvDocumentos.setText(solicitacoes.getArrayDocumentos().toString().replace("[", "").replace("]", ""));
                 tvStatus.setText(solicitacoes.getArrayStatus().toString().replace("[", "").replace("]", ""));
                 if (solicitacoes.getArrayDetalhes().size()==0){
@@ -212,13 +213,17 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
                                 defaultResponseCall.enqueue(new Callback<DefaultResponse>() {
                                     @Override
                                     public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                        if (response.code()==200){
-                                            DefaultResponse dr = response.body();
+                                        DefaultResponse dr = response.body();
+                                        if (response.code()==201){
                                             Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
                                             alertDialog.dismiss();
                                             dialogExluirPerfil.dismiss();
                                             adapterDocumentos.removerItem(position);
 
+                                        }else{
+                                            alertDialog.dismiss();
+                                            dialogExluirPerfil.dismiss();
+                                            Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
                                         }
                                     }
 
@@ -442,14 +447,16 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
                                         listarCursosArrayList.get(k).getAbreviatura() + " " + listarRequisicoesArrayList.get(i).getData_pedido() + " " +
                                         listarRequisicoesArrayList.get(i).getHora_pedido() + " " + listaDocs + " " + listaStatus);*/
 
-                                SimpleDateFormat conversaoData = new SimpleDateFormat("dd/MM/yyyy");
-                                String novaData = (conversaoData.format(new Date()));
+                                String data = listarRequisicoesArrayList.get(i).getData_pedido();
+                                SimpleDateFormat conversaoData = new SimpleDateFormat("yyyy-MM-dd");
+                                Date date = conversaoData.parse(data);
+                                conversaoData.applyPattern("dd/MM/yyyy");
+                                String novaData = (conversaoData.format(date));
 
                                 Solicitacoes solicitacoes = new Solicitacoes(listarRequisicoesArrayList.get(i).getId(), listarCursosArrayList.get(k).getCurso(),
                                         listarCursosArrayList.get(k).getAbreviatura(), novaData, listarRequisicoesArrayList.get(i).getHora_pedido(), convertDocs,
                                         convertDetalhes, convertStatus, listaElementosDoc, listaElementosStatus, listaElementosDet);
                                 listaSolicitacoes.add(solicitacoes);
-
                             }
                         }
                     }
@@ -457,6 +464,8 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -490,6 +499,11 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
     }
     public void clickBotaoHomeUfape(){
+
+        startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
+    public void clickBotaoHomeUfape(View view){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
