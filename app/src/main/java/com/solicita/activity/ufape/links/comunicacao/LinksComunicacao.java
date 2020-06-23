@@ -23,8 +23,8 @@ public class LinksComunicacao {
         links.abrirLink("http://ufape.edu.br/br/ufape-na-m%C3%ADdia", context);
     }
 
-    public void abrirLinkLogomarcaIdentidadeVisual(Context context){
-        links.abrirLink("http://ufape.edu.br/br/logomarca-identidade-visual", context);
+    public void abrirLinkLogomarca(Context context){
+        links.abrirLink("http://ufape.edu.br/br/logomarca", context);
     }
 
     public void abrirLinkModelosDocumentos(Context context){
