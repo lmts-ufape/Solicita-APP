@@ -150,23 +150,14 @@ public class MainActivityUfape extends AppCompatActivity
         LinksServicos.getLinksInstitucional().abrirLinkSiga(this);
     }
 
+    public void clickBotaoMenuLateralAva(View view){
+        fecharMenuLateral();
+        LinksServicos.getLinksInstitucional().abrirLinkAva(this);
+    }
+
     public void clickBotaoMenuLateralBiblioteca(View view){
         fecharMenuLateral();
         LinksInstitucional.getLinksInstitucional().abrirLinkBiblioteca(this);
-    }
-
-    public void clickBotaoMenuLateralContato(View view){
-        fecharMenuLateral();
-        ajustarCorBotoesMenuLateral(view);
-        clickBotaoRodapeServicos();
-        ServicosActivityPrincipal.getServicosActivityPrincipal().abrirTelaContato();
-    }
-
-    public void clickBotaoMenuLateralPublicacoes(View view){
-        fecharMenuLateral();
-        InicioActivityPrincipal.carrega_tela_inicial = false;
-        mPager.setCurrentItem(0);
-        InicioActivityPrincipal.getInicioActivityPrincipal().abrirTelaPublicacoes();
     }
 
     public void clickBotaoMenuLateralSolicita(){
@@ -181,6 +172,18 @@ public class MainActivityUfape extends AppCompatActivity
     public void clickBotaoMenuLateralSubmeta(View view){
         fecharMenuLateral();
         LinksServicos.getLinksInstitucional().abrirLinkSubmeta(this);
+    }
+
+    public void clickBotaoMenuLateralAcessoInformacao(View view){
+        fecharMenuLateral();
+        LinksServicos.getLinksInstitucional().abrirLinkAcessoInformacao(this);
+    }
+
+    public void clickBotaoMenuLateralContato(View view){
+        fecharMenuLateral();
+        ajustarCorBotoesMenuLateral(view);
+        clickBotaoRodapeServicos();
+        ServicosActivityPrincipal.getServicosActivityPrincipal().abrirTelaContato();
     }
 
     public void clickBotaoMenuLateralSobre(View view){

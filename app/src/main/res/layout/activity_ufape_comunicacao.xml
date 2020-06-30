@@ -83,7 +83,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/botao_logomarca_identidade_visual"
+            android:id="@+id/botao_logomarca"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="20dp"
@@ -97,7 +97,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Logomarca e Identidade Visual"
+                android:text="Logomarca"
                 android:padding="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="16dp"

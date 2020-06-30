@@ -30,8 +30,8 @@ public class PublicacoesActivity extends Fragment {
         LinearLayout botao_voltar = root.findViewById(R.id.botao_voltar);
         botao_voltar.setOnClickListener(clickBotaoVoltar);
 
-        LinearLayout botao_repositorio_institucional = (LinearLayout) root.findViewById(R.id.botao_repositorio_institucional);
-        botao_repositorio_institucional.setOnClickListener(clickBotaoRepositorioInstitucional);
+        LinearLayout botao_monografia_dissertacoes_teses = (LinearLayout) root.findViewById(R.id.botao_monografia_dissertacoes_teses);
+        botao_monografia_dissertacoes_teses.setOnClickListener(clickBotaoMonografiaDissertacoesTeses);
 
         LinearLayout botao_agenda_defesas = (LinearLayout) root.findViewById(R.id.botao_agenda_defesas);
         botao_agenda_defesas.setOnClickListener(clickBotaoAgendaDefesas);
@@ -50,9 +50,9 @@ public class PublicacoesActivity extends Fragment {
         }
     };
 
-    private View.OnClickListener clickBotaoRepositorioInstitucional = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoMonografiaDissertacoesTeses = new View.OnClickListener() {
         public void onClick(View v) {
-            LinksPublicacoes.getLinksInstitucional().abrirLinkRepositorioInstitucional(getContext());
+            LinksPublicacoes.getLinksInstitucional().abrirLinkMonografiaDissertacoesTeses(getContext());
         }
     };
 

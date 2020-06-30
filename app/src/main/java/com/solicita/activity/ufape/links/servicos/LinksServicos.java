@@ -16,7 +16,11 @@ public class LinksServicos {
     private Links links = new Links();
 
     public void abrirLinkSiga(Context context){
-        links.abrirLink("https://www.siga.ufrpe.br/ufrpe/index.jsp", context);
+        links.abrirLink("https://www.siga.ufrpe.br/", context);
+    }
+
+    public void abrirLinkAva(Context context){
+        links.abrirLink("http://ava.ufrpe.br/", context);
     }
 
     public void abrirLinkSubmeta(Context context){
@@ -25,5 +29,9 @@ public class LinksServicos {
 
     public void abrirLinkLMTS(Context context){
         links.abrirLink("http://lmts.uag.ufrpe.br/", context);
+    }
+
+    public void abrirLinkAcessoInformacao(Context context){
+        links.abrirLink("http://ufape.edu.br/br/acesso-%C3%A0-informa%C3%A7%C3%A3o", context);
     }
 }

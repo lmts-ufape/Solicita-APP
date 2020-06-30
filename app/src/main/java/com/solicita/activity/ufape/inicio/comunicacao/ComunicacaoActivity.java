@@ -36,8 +36,8 @@ public class ComunicacaoActivity extends Fragment {
         LinearLayout botao_ufape_midia = (LinearLayout) root.findViewById(R.id.botao_ufape_midia);
         botao_ufape_midia.setOnClickListener(clickBotaoUfapeMidia);
 
-        LinearLayout botao_logomarca_identidade_visual = (LinearLayout) root.findViewById(R.id.botao_logomarca_identidade_visual);
-        botao_logomarca_identidade_visual.setOnClickListener(clickBotaoLogomarcaIdentidadeVisual);
+        LinearLayout botao_logomarca = (LinearLayout) root.findViewById(R.id.botao_logomarca);
+        botao_logomarca.setOnClickListener(clickBotaoLogomarca);
 
         LinearLayout botao_modelo_documentos = (LinearLayout) root.findViewById(R.id.botao_modelos_documentos);
         botao_modelo_documentos.setOnClickListener(clickBotaoModelosDocumentos);
@@ -68,9 +68,9 @@ public class ComunicacaoActivity extends Fragment {
         }
     };
 
-    private View.OnClickListener clickBotaoLogomarcaIdentidadeVisual = new View.OnClickListener() {
+    private View.OnClickListener clickBotaoLogomarca = new View.OnClickListener() {
         public void onClick(View v) {
-            LinksComunicacao.getLinksInstitucional().abrirLinkLogomarcaIdentidadeVisual(getContext());
+            LinksComunicacao.getLinksInstitucional().abrirLinkLogomarca(getContext());
         }
     };
 

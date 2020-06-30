@@ -37,6 +37,9 @@ public class ServicosActivity extends Fragment {
         LinearLayout botao_siga = (LinearLayout) root.findViewById(R.id.botao_siga_servicos);
         botao_siga.setOnClickListener(clickBotaoSiga);
 
+        LinearLayout botao_ava = (LinearLayout) root.findViewById(R.id.botao_ava_servicos);
+        botao_ava.setOnClickListener(clickBotaoAva);
+
         LinearLayout botao_biblioteca = (LinearLayout) root.findViewById(R.id.botao_biblioteca_servicos);
         botao_biblioteca.setOnClickListener(clickBotaoBiblioteca);
 
@@ -62,6 +65,12 @@ public class ServicosActivity extends Fragment {
     private View.OnClickListener clickBotaoSiga = new View.OnClickListener() {
         public void onClick(View v) {
             LinksServicos.getLinksInstitucional().abrirLinkSiga(getContext());
+        }
+    };
+
+    private View.OnClickListener clickBotaoAva = new View.OnClickListener() {
+        public void onClick(View v) {
+            LinksServicos.getLinksInstitucional().abrirLinkAva(getContext());
         }
     };
 
