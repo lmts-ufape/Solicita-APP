@@ -60,65 +60,27 @@
 
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/botao_menu_lateral_siga"
                 android:onClick="clickBotaoMenuLateralSiga"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Sig@"
-                android:textColor="#000000"
                 android:background="@drawable/ufape_botao_customizado_menu_lateral"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                />
-
-            <TextView
-                android:id="@+id/botao_menu_lateral_biblioteca"
-                android:onClick="clickBotaoMenuLateralBiblioteca"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Biblioteca"
-                android:textColor="#000000"
-                android:background="@drawable/ufape_botao_customizado_menu_lateral"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                />
-
-            <LinearLayout
-                android:id="@+id/botao_menu_lateral_contato"
-                android:onClick="clickBotaoMenuLateralContato"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/ufape_botao_customizado_menu_lateral"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="5dp"
                 >
 
                 <info.androidhive.fontawesome.FontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fa_id_badge_solid"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ufape_logo_siga"
                     android:textColor="#000000"
-                    android:textSize="22dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="7dp"
                     app:solid_icon="true" />
 
                 <TextView
@@ -127,15 +89,51 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Contato"
+                    android:text="Sig@"
                     android:textColor="#000000"
                     />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/botao_menu_lateral_editais"
-                android:onClick="clickBotaoMenuLateralPublicacoes"
+                android:id="@+id/botao_menu_lateral_ava"
+                android:onClick="clickBotaoMenuLateralAva"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/ufape_botao_customizado_menu_lateral"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                >
+
+                <info.androidhive.fontawesome.FontTextView
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ufape_logo_ava"
+                    android:textColor="#000000"
+                    android:layout_marginTop="-2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="8dp"
+                    app:solid_icon="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="AVA"
+                    android:textColor="#000000"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/botao_menu_lateral_biblioteca"
+                android:onClick="clickBotaoMenuLateralBiblioteca"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/ufape_botao_customizado_menu_lateral"
@@ -150,7 +148,7 @@
                 <info.androidhive.fontawesome.FontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fa_book_solid"
+                    android:text="@string/fa_book_reader_solid"
                     android:textColor="#000000"
                     android:textSize="22dp"
                     android:layout_marginRight="10dp"
@@ -162,7 +160,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Publicações"
+                    android:text="Biblioteca"
                     android:textColor="#000000"
                     />
 
@@ -233,6 +231,76 @@
                     android:textSize="16dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Submeta"
+                    android:textColor="#000000"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/botao_menu_lateral_informacoes"
+                android:onClick="clickBotaoMenuLateralAcessoInformacao"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/ufape_botao_customizado_menu_lateral"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                >
+
+                <info.androidhive.fontawesome.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_question_circle_solid"
+                    android:textColor="#000000"
+                    android:textSize="22dp"
+                    android:layout_marginRight="8dp"
+                    app:solid_icon="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Acesso à informação"
+                    android:textColor="#000000"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/botao_menu_lateral_contato"
+                android:onClick="clickBotaoMenuLateralContato"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/ufape_botao_customizado_menu_lateral"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                >
+
+                <info.androidhive.fontawesome.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_id_badge_solid"
+                    android:textColor="#000000"
+                    android:textSize="22dp"
+                    android:layout_marginRight="10dp"
+                    app:solid_icon="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Contato"
                     android:textColor="#000000"
                     />
 

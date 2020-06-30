@@ -15,8 +15,8 @@ public class LinksPublicacoes {
 
     private Links links = new Links();
 
-    public void abrirLinkRepositorioInstitucional(Context context){
-        links.abrirLink("http://ufape.edu.br/br/reposit%C3%B3rio-institucional-monografia-disserta%C3%A7%C3%A3o-tese", context);
+    public void abrirLinkMonografiaDissertacoesTeses(Context context){
+        links.abrirLink("http://ufape.edu.br/br/monografias-disserta%C3%A7%C3%B5es-teses", context);
     }
 
     public void abrirLinkAgendaDefesas(Context context){

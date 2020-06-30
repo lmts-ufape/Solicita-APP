@@ -33,7 +33,7 @@
             />
 
         <LinearLayout
-            android:id="@+id/botao_repositorio_institucional"
+            android:id="@+id/botao_monografia_dissertacoes_teses"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="20dp"
