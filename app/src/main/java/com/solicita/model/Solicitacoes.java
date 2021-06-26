@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Solicitacoes {
 
     private String id, curso, data_pedido, hora_pedido, documentosSolicitados, status, detalhes, documentoId, perfilId, requisicaoId, documento, idDocumento, idPerfil, abreviatura, idCurso, cursoId;
-   // private String id, curso, data_pedido, hora_pedido, status, documentoId, perfilId, requisicaoId, documento, idDocumento, idPerfil;
-   // private ArrayList documentosSolicitados;
     private ArrayList arrayDocumentos, arrayStatus, arrayDetalhes;
 
     public Solicitacoes() {

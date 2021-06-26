@@ -23,11 +23,11 @@ import retrofit2.Response;
 public class RedefinirSenhaActivity extends AppCompatActivity {
 
     private TextInputEditText textEsqueciSenha;
-    ApiInterface apiInterface;
-    Button buttonRedefinirSenha, buttonVoltar, buttonLogout, buttonHome;
-    SharedPrefManager sharedPrefManager;
-    TextView textNomeUsuario;
-    ProgressDialog progressDialog;
+    private ApiInterface apiInterface;
+    private Button buttonRedefinirSenha, buttonVoltar, buttonLogout, buttonHome;
+    private SharedPrefManager sharedPrefManager;
+    private TextView textNomeUsuario;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
 
     }
 
-    public void redefinirSenha(){
+    private void redefinirSenha(){
 
         String email = textEsqueciSenha.getText().toString();
 
@@ -90,11 +90,11 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
             });
         }
     }
-    public void voltarLogin(){
+    private void voltarLogin(){
         startActivity(new Intent(RedefinirSenhaActivity.this, LoginActivity.class));
     }
 
-    public void inicializarComponentes(){
+    private void inicializarComponentes(){
 
         textEsqueciSenha=findViewById(R.id.textEsqueciSenha);
         buttonRedefinirSenha=findViewById(R.id.buttonRedefinirSenha);

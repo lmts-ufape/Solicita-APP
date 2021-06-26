@@ -7,10 +7,10 @@ public class Error {
 
     @Expose
     @SerializedName("message")
-    String message;
+    private String message;
     @Expose
     @SerializedName("status_code")
-    String status_code;
+    private String status_code;
 
     public String getMessage() {
         return message;

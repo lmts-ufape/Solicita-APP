@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class Perfil {
 
     @Expose
-    @SerializedName("id") String id;
+    @SerializedName("id") private String id;
 
     @Expose
-    @SerializedName("default") String curso;
+    @SerializedName("default") private String curso;
 
     @Expose
-    @SerializedName("situacao") String situacao;
+    @SerializedName("situacao") private String situacao;
     private int aluno_id;
     private String unidade_id;
     private int curso_id;

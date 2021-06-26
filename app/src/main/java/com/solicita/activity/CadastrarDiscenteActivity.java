@@ -49,23 +49,22 @@ import static android.R.layout.simple_spinner_item;
 
 public class CadastrarDiscenteActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    TextInputEditText campoNome, campoCPF, campoEmail, campoSenha, campoConfirmarSenha;
-    Spinner spinnerVinculo, spinnerUnidade, spinnerCurso;
-    Button buttonCadastro;
-    CheckBox checkBox;
-    ApiInterface apiInterface;
-    Call<UserResponse> call;
-    Context mContext;
-    ArrayList<Curso> cursoArrayList;
-    ArrayList<Unidade> unidadeArrayList;
-    ArrayList<String> cursos = new ArrayList<>();
-    ArrayList<String> unidade = new ArrayList<>();
+    private TextInputEditText campoNome, campoCPF, campoEmail, campoSenha, campoConfirmarSenha;
+    private Spinner spinnerVinculo, spinnerUnidade, spinnerCurso;
+    private Button buttonCadastro;
+    private CheckBox checkBox;
+    private ApiInterface apiInterface;
+    private Call<UserResponse> call;
+    private Context mContext;
+    private ArrayList<Curso> cursoArrayList;
+    private ArrayList<Unidade> unidadeArrayList;
+    private ArrayList<String> cursos = new ArrayList<>();
+    private ArrayList<String> unidade = new ArrayList<>();
     private int index;
-    String idUnidade;
-    String idCurso;
-    GoogleApiClient googleApiClient;
-    ProgressDialog progressDialog;
-
+    private String idUnidade;
+    private String idCurso;
+    private GoogleApiClient googleApiClient;
+    private ProgressDialog progressDialog;
 
     String SiteKey = "6LcgPvsUAAAAADb-PsgvX4Q7WJQQvtM1mLE6njKR";
 
@@ -128,7 +127,6 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                     if (response.body() != null) {
                         String jsonResponse = response.body();
                         spinnerCursoJSON(jsonResponse);
-                        //spinnerUnidadeJSON(jsonResponse);
 
                     } else {
                         Log.i("onEmptyResponse", "Empty");
@@ -148,7 +146,6 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         String jsonResponse = response.body();
-                        //  spinnerCursoJSON(jsonResponse);
                         spinnerUnidadeJSON(jsonResponse);
 
                     } else {
@@ -165,7 +162,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
 
     }
 
-    public void spinnerCursoJSON(String response) {
+    private void spinnerCursoJSON(String response) {
         try {
             JSONObject object = new JSONObject(response);
             cursoArrayList = new ArrayList<>();
@@ -185,8 +182,6 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
             for (int i = 0; i < cursoArrayList.size(); i++) {
                 cursos.add(cursoArrayList.get(i).getNome());
 
-                //      Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{cursos}));
-                //      System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursos}));
             }
 
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(CadastrarDiscenteActivity.this, simple_spinner_item, cursos);
@@ -213,7 +208,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         }
     }
 
-    public void spinnerUnidadeJSON(String response) {
+    private void spinnerUnidadeJSON(String response) {
         try {
             JSONObject object = new JSONObject(response);
             unidadeArrayList = new ArrayList<>();
@@ -229,14 +224,9 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
 
                 unidadeArrayList.add(unidade);
 
-                //           Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{cursoArrayList}));
-                //         System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursoArrayList}));
             }
             for (int i = 0; i < unidadeArrayList.size(); i++) {
                 unidade.add(unidadeArrayList.get(i).getNome());
-
-                //              Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{unidade}));
-                //      System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursos}));
 
             }
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(CadastrarDiscenteActivity.this, simple_spinner_item, unidade);
@@ -262,7 +252,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         }
     }
 
-    public void cadastrar() {
+    private void cadastrar() {
 
 
         String name = campoNome.getText().toString();
@@ -394,7 +384,7 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
         startActivity(abrirTelaLogin);
     }
 
-    public void inicializarComponentes() {
+    private void inicializarComponentes() {
 
         campoNome = findViewById(R.id.textProtNome);
         campoCPF = findViewById(R.id.textInfoCPF);
@@ -411,16 +401,13 @@ public class CadastrarDiscenteActivity extends AppCompatActivity implements Goog
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        //  Toast.makeText(this, "onConnected()", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        // Toast.makeText(this,"onConnectionSuspended: " + i, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //    Toast.makeText(this, "onConnectionFailed():\n" + connectionResult.getErrorMessage(), Toast.LENGTH_LONG).show();
     }
 }

@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class Requisicao {
 
     @Expose
-    @SerializedName("id") int id;
+    @SerializedName("id") private int id;
     @Expose
-    @SerializedName("data_pedido") String data_pedido;
+    @SerializedName("data_pedido") private String data_pedido;
     @Expose
-    @SerializedName("hora_pedido") String hora_pedido;
+    @SerializedName("hora_pedido") private String hora_pedido;
 
     public int getId() {
         return id;

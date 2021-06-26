@@ -25,9 +25,9 @@ public class AlterarSenhaActivity extends AppCompatActivity {
 
     private TextInputEditText campoConfNovaSenha, campoSenhaAtual, campoNovaSenha;
     private Button buttonAlterarSenha, buttonLogout, buttonHome;
-    ApiInterface apiInterface;
-    SharedPrefManager sharedPrefManager;
-    TextView textNomeUsuario;
+    private ApiInterface apiInterface;
+    private SharedPrefManager sharedPrefManager;
+    private TextView textNomeUsuario;
 
 
 
@@ -51,7 +51,7 @@ public class AlterarSenhaActivity extends AppCompatActivity {
 
         buttonAlterarSenha.setOnClickListener(v -> alterarSenha());
     }
-    public void alterarSenha(){
+    private void alterarSenha(){
         String atual = campoSenhaAtual.getText().toString();
         String novaSenha = campoNovaSenha.getText().toString();
         String confNovaSenha = campoConfNovaSenha.getText().toString();
@@ -83,53 +83,8 @@ public class AlterarSenhaActivity extends AppCompatActivity {
 
     }
 
- /*   public void atualizarSenha() {
-        usuario = FirebaseAuth.getInstance().getCurrentUser();
-        String email = usuario.getEmail();
 
-        final String senhaAtual = campoSenhaAtual.getText().toString();
-
-        System.out.println(senhaAtual);
-
-        final AuthCredential credencial = EmailAuthProvider.getCredential(email, senhaAtual);
-
-        usuario.reauthenticate(credencial).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(AlterarSenhaActivity.this, "Falha na autenticação.", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    final String novaSenha = campoNovaSenha.getText().toString();
-                    final String confNovaSenha = campoConfNovaSenha.getText().toString();
-
-                    if (novaSenha.equals(confNovaSenha)) {
-                        usuario.updatePassword(novaSenha).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AlterarSenhaActivity.this,
-                                            "Senha atualizada com sucesso!",
-                                            Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    Toast.makeText(AlterarSenhaActivity.this,
-                                            "Falha ao atualizar senha!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    } else {
-                        Toast.makeText(AlterarSenhaActivity.this,
-                                "A nova senha deve ser igual a de confirmação!",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            }
-        });
-    }*/
-    public void inicializarComponentes() {
+    private void inicializarComponentes() {
 
         campoSenhaAtual = findViewById(R.id.editSenhaAtual);
         campoNovaSenha = findViewById(R.id.editNovaSenha);
@@ -142,7 +97,7 @@ public class AlterarSenhaActivity extends AppCompatActivity {
 
     }
 
-    public void logoutApp() {
+    private void logoutApp() {
         sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
         startActivity(new Intent(AlterarSenhaActivity.this, LoginActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -150,7 +105,7 @@ public class AlterarSenhaActivity extends AppCompatActivity {
         finish();
     }
 
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -160,7 +115,7 @@ public class AlterarSenhaActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
-    public void irHome(){
+    private void irHome(){
         startActivity(new Intent(AlterarSenhaActivity.this, HomeAlunoActivity.class));
 
     }

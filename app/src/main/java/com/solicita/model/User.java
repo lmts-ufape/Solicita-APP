@@ -6,26 +6,24 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
     @Expose
-    @SerializedName("id") int id;
+    @SerializedName("id") private int id;
     @Expose
-    @SerializedName("name") String name;
+    @SerializedName("name") private String name;
     @Expose
-    @SerializedName("email") String email;
+    @SerializedName("email") private String email;
     @Expose
-    @SerializedName("cpf") String cpf;
+    @SerializedName("cpf") private String cpf;
     @Expose
-    @SerializedName("vinculo") String vinculo;
+    @SerializedName("vinculo") private String vinculo;
     @Expose
-    @SerializedName("unidade") String unidade;
+    @SerializedName("unidade") private String unidade;
     @Expose
-    @SerializedName("cursos") String cursos;
+    @SerializedName("cursos") private String cursos;
     @Expose
-    @SerializedName("token") String token;
+    @SerializedName("token") private String token;
     @Expose
-    @SerializedName("tipo") String tipo;
+    @SerializedName("tipo") private String tipo;
 
-
-    //private String login, token, CPF, tipoVinculo, unidadeAcademica, tipoCurso, senha, confirmarSenha;
     private String atual, password, confirm_password, login;
 
     public User() {

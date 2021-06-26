@@ -22,10 +22,10 @@ import retrofit2.Response;
 
 public class HomeAlunoActivity extends AppCompatActivity {
 
-    SharedPrefManager sharedPrefManager;
-    TextView textNomeUsuario;
-    Button buttonLogout, buttonHome;
-    ApiInterface apiInterface;
+    private SharedPrefManager sharedPrefManager;
+    private TextView textNomeUsuario;
+    private Button buttonLogout, buttonHome;
+    private ApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class HomeAlunoActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(v -> logoutApp());
 
     }
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -64,11 +64,7 @@ public class HomeAlunoActivity extends AppCompatActivity {
             }
         });
     }
-    public void irHome(){
-       // startActivity(new Intent(HomeAlunoActivity.this, HomeAlunoActivity.class));
-
-    }
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -90,7 +86,7 @@ public class HomeAlunoActivity extends AppCompatActivity {
         Intent irTelaSolicitarDocumentos = new Intent(getApplicationContext(), SolicitarDocumentosActivity.class);
         startActivity(irTelaSolicitarDocumentos);
     }
-    public void inicializarComponentes(){
+    private void inicializarComponentes(){
         textNomeUsuario = findViewById(R.id.textNomeUsuario);
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonHome = findViewById(R.id.buttonHome);

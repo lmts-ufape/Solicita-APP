@@ -28,10 +28,10 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private TextInputEditText editNomePerfil, editEmailPerfil;
     private Button buttonSalvarAlteracoes;
-    ApiInterface apiInterface;
-    SharedPrefManager sharedPrefManager;
-    Button buttonLogout, buttonHome;
-    TextView textNomeUsuario;
+    private ApiInterface apiInterface;
+    private SharedPrefManager sharedPrefManager;
+    private Button buttonLogout, buttonHome;
+    private TextView textNomeUsuario;
 
 
     @Override
@@ -52,7 +52,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
         buttonLogout.setOnClickListener(v -> logoutApp());
 
-        //Salvar alterações
         buttonSalvarAlteracoes.setOnClickListener(v -> editarPerfil());
     }
     private void buscarInfoJSON(){
@@ -73,7 +72,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
             }
         });
     }
-    public void editarPerfil(){
+    private void editarPerfil(){
 
         ValidacaoEmail validacaoEmail = new ValidacaoEmail();
 
@@ -121,7 +120,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }
     }
 
-    public void inicializarComponentes(){
+    private void inicializarComponentes(){
 
         editNomePerfil         = findViewById(R.id.editNomePerfil);
         editEmailPerfil        = findViewById(R.id.editEmailPerfil);
@@ -130,9 +129,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         buttonHome = findViewById(R.id.buttonHome);
         textNomeUsuario = findViewById(R.id.textNomeUsuario);
 
-        // editEmailPerfil.setFocusable(false);
     }
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -155,11 +153,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
         });
 
     }
-    public void irHome(){
+    private void irHome(){
         startActivity(new Intent(EditarPerfilActivity.this, HomeAlunoActivity.class));
 
     }
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

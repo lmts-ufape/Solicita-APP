@@ -1,7 +1,5 @@
 package com.solicita.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.solicita.R;
 import com.solicita.activity.ufape.MainActivityUfape;
@@ -44,25 +43,25 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
     private Button buttonAdicionarPerfil;
     private ApiInterface apiInterface;
     private SharedPrefManager sharedPrefManager;
-    TextView textNomeUsuario;
+    private TextView textNomeUsuario;
 
 
-    ArrayList<Curso> cursoArrayList;
-    ArrayList<Unidade> unidadeArrayList;
+    private ArrayList<Curso> cursoArrayList;
+    private ArrayList<Unidade> unidadeArrayList;
 
-    ArrayList<String> cursos = new ArrayList<>();
-    ArrayList<String> unidade = new ArrayList<>();
+    private ArrayList<String> cursos = new ArrayList<>();
+    private ArrayList<String> unidade = new ArrayList<>();
 
     private int index;
-    String idUnidade;
-    String idCurso;
+    private String idUnidade;
+    private String idCurso;
 
-    Call<DefaultResponse> call;
-    Context context;
+    private Call<DefaultResponse> call;
+    private Context context;
 
-    String vinculo = "", checkDefault = "";
+    private String vinculo = "", checkDefault = "";
 
-    Button buttonLogout, buttonHome;
+    private Button buttonLogout, buttonHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +82,9 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
 
         buttonLogout.setOnClickListener(v -> logoutApp());
 
-        buttonAdicionarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adicionarPerfil();
-            }
-        });
+        buttonAdicionarPerfil.setOnClickListener(v -> adicionarPerfil());
     }
-    public void buscarJSON(){
+    private void buscarJSON(){
 
         Call<String> callCurso = apiInterface.getCursoJSONString();
         Call<String> callUnidade = apiInterface.getUnidadeJSONString();
@@ -120,7 +114,6 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     if(response.body()!=null){
                         String jsonResponse = response.body();
-                        //  spinnerCursoJSON(jsonResponse);
                         spinnerUnidadeJSON(jsonResponse);
 
                     }else{
@@ -135,7 +128,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         });
     }
 
-    public void spinnerCursoJSON(String response){
+    private void spinnerCursoJSON(String response){
         try {
             JSONObject object = new JSONObject(response);
             cursoArrayList = new ArrayList<>();
@@ -155,8 +148,6 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
             for(int i=0; i<cursoArrayList.size(); i++){
                 cursos.add(cursoArrayList.get(i).getNome());
 
-                //      Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{cursos}));
-                //      System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursos}));
             }
 
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(AdicionarPerfilActivity.this, simple_spinner_item, cursos);
@@ -183,7 +174,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         }
 
     }
-    public void spinnerUnidadeJSON(String response){
+    private void spinnerUnidadeJSON(String response){
 
         try {
             JSONObject object = new JSONObject(response);
@@ -200,14 +191,9 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
 
                 unidadeArrayList.add(unidade);
 
-                //           Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{cursoArrayList}));
-                //         System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursoArrayList}));
             }
             for(int i=0; i<unidadeArrayList.size(); i++){
                 unidade.add(unidadeArrayList.get(i).getNome());
-
-                //              Log.d("this is my array", "arr: " + Arrays.toString(new ArrayList[]{unidade}));
-                //      System.out.println("arr: "+ Arrays.toString(new ArrayList[]{cursos}));
 
             }
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(AdicionarPerfilActivity.this, simple_spinner_item, unidade);
@@ -233,7 +219,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         }
 
     }
-    public void adicionarPerfil(){
+    private void adicionarPerfil(){
 
         vinculo = spinnerVinculo.getSelectedItem().toString();
 
@@ -290,22 +276,19 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
             }
         });
     }
-    public void adicionarListenerCheck(){
-        checkDefinirPadrao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (checkDefinirPadrao.isChecked()){
-                    checkDefault = "true";
-                    System.out.println("Valor check: " + checkDefault);
-                }else{
-                    checkDefault = "false";
-                    System.out.println("Valor check: " + checkDefault);
+    private void adicionarListenerCheck(){
+        checkDefinirPadrao.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (checkDefinirPadrao.isChecked()){
+                checkDefault = "true";
+                System.out.println("Valor check: " + checkDefault);
+            }else{
+                checkDefault = "false";
+                System.out.println("Valor check: " + checkDefault);
 
-                }
             }
         });
     }
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -328,7 +311,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         });
 
     }
-    public void irHome(){
+    private void irHome(){
         startActivity(new Intent(AdicionarPerfilActivity.this, HomeAlunoActivity.class));
 
     }
@@ -336,7 +319,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -345,7 +328,7 @@ public class AdicionarPerfilActivity extends AppCompatActivity {
         Intent abrirPerfil = new Intent(getApplicationContext(), InformacoesDiscenteActivity.class);
         startActivity(abrirPerfil);
     }
-    public void inicializarComponentes(){
+    private void inicializarComponentes(){
 
         spinnerVinculo=findViewById(R.id.spinnerVinculo);
         spinnerUnidade=findViewById(R.id.spinnerUnidade);
