@@ -48,38 +48,38 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
     private Spinner spinnerPerfil;
 
     private Button buttonSolicitar;
-    ApiInterface apiInterface;
+    private ApiInterface apiInterface;
 
-    ArrayList<Perfil> perfilArrayList;
-    ArrayList<String> perfil = new ArrayList<>();
-    ArrayList<String> perfilId = new ArrayList<>();
+    private ArrayList<Perfil> perfilArrayList;
+    private ArrayList<String> perfil = new ArrayList<>();
+    private ArrayList<String> perfilId = new ArrayList<>();
 
-    ArrayList<Documento> documentoArrayList;
-    ArrayList<Documento> documentoDetalhesArrayList;
+    private ArrayList<Documento> documentoArrayList;
+    private ArrayList<Documento> documentoDetalhesArrayList;
 
-    ArrayList<String> documento = new ArrayList<>();
-    ArrayList<String> documentoDetalhes = new ArrayList<>();
+    private ArrayList<String> documento = new ArrayList<>();
+    private ArrayList<String> documentoDetalhes = new ArrayList<>();
 
-    ArrayList<String> solicitados = new ArrayList<>();
+    private ArrayList<String> solicitados = new ArrayList<>();
 
-    LinearLayout linearLayout;
-    CheckBox checkBox;
+    private LinearLayout linearLayout;
+    private CheckBox checkBox;
 
-    SharedPrefManager sharedPrefManager;
+    private SharedPrefManager sharedPrefManager;
 
-    TextView textNomeUsuario;
+    private TextView textNomeUsuario;
 
-    Button buttonLogout, buttonHome, buttonCancelar;
+    private Button buttonLogout, buttonHome, buttonCancelar;
 
     private int index;
-    String idPerfil = "";
+    private String idPerfil = "";
 
-    Context context;
+    private Context context;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-    String cursoP, situacaoP, dataP, horaP;
-    String declaracaoVinculo = "", comprovanteMatricula = "", historico = "", programaDisciplina = "", outros = "", requisicaoPrograma = "", requisicaoOutros = "";
+    private String cursoP, situacaoP, dataP, horaP;
+    private String declaracaoVinculo = "", comprovanteMatricula = "", historico = "", programaDisciplina = "", outros = "", requisicaoPrograma = "", requisicaoOutros = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,25 +104,22 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
 
         buttonLogout.setOnClickListener(v -> logoutApp());
 
-        //  buttonSolicitar.setOnClickListener(v -> finalizarSolicitacao());
-        buttonSolicitar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (declaracaoVinculo != "1" && comprovanteMatricula != "1" && historico != "1" && programaDisciplina != "1" && outros != "1") {
-                    Toast.makeText(getApplicationContext(), "Selecione pelo menos um documento.", Toast.LENGTH_LONG).show();
-                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.equals("")) || ((outros.equals("1") && requisicaoOutros.equals("")))) {
-                    Toast.makeText(getApplicationContext(), "Preencha o campo com as informações relativas à disciplina e a finalidade do pedido.", Toast.LENGTH_LONG).show();
-                } else if ((programaDisciplina.equals("1") && requisicaoPrograma.length() > 190) || (outros.equals("1") && requisicaoOutros.length() > 190)) {
-                    Toast.makeText(getApplicationContext(), "O campo só pode ter no máximo 190 caracteres.", Toast.LENGTH_LONG).show();
-                } else {
-                    finalizarSolicitacao();
-                }
+        buttonSolicitar.setOnClickListener(v -> {
+            if (declaracaoVinculo != "1" && comprovanteMatricula != "1" && historico != "1" && programaDisciplina != "1" && outros != "1") {
+                Toast.makeText(getApplicationContext(), "Selecione pelo menos um documento.", Toast.LENGTH_LONG).show();
+            } else if ((programaDisciplina.equals("1") && requisicaoPrograma.equals("")) || ((outros.equals("1") && requisicaoOutros.equals("")))) {
+                Toast.makeText(getApplicationContext(), "Preencha o campo com as informações relativas à disciplina e a finalidade do pedido.", Toast.LENGTH_LONG).show();
+            } else if ((programaDisciplina.equals("1") && requisicaoPrograma.length() > 190) || (outros.equals("1") && requisicaoOutros.length() > 190)) {
+                Toast.makeText(getApplicationContext(), "O campo só pode ter no máximo 190 caracteres.", Toast.LENGTH_LONG).show();
+            } else {
+                finalizarSolicitacao();
             }
         });
+
         buttonCancelar.setOnClickListener(v -> irHome());
     }
 
-    public void finalizarSolicitacao() {
+    private void finalizarSolicitacao() {
 
         String defaultt = idPerfil;
 
@@ -222,7 +219,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         });
     }
 
-    public void checkboxDocumentos(String response) {
+    private void checkboxDocumentos(String response) {
         try {
             JSONObject object = new JSONObject(response);
             documentoArrayList = new ArrayList<>();
@@ -252,11 +249,9 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 checkBox.setText(documento.get(i));
                 linearLayout.addView(checkBox);
 
-                //  EditText editText = new EditText(context);
                 EditText editText = new EditText(context);
 
                 if (documentoDetalhesArrayList.get(i).getDetalhes().equals("true")) {
-                    // if (documentoDetalhesArrayList.get(i).getDetalhes().equals("1")) {
                     editText.setTextSize(18);
                     editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     editText.setVisibility(View.GONE);
@@ -297,8 +292,9 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                             @Override
                             public void afterTextChanged(Editable s) {
                                 requisicaoPrograma = editText.getText().toString();
+                                System.out.println("Campo programa de disciplina: " + requisicaoPrograma);
                                 if (requisicaoPrograma.isEmpty()) {
-                                    editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido");
+                                    editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido.");
                                     editText.requestFocus();
                                     return;
                                 }
@@ -306,7 +302,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                             }
                         });
                         if (requisicaoPrograma.isEmpty()) {
-                            editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido");
+                            editText.setError("Preencha este campo com as informações relativas à disciplina e a finalidade do pedido.");
                             editText.requestFocus();
                             return;
                         }
@@ -381,7 +377,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         }
     }
 
-    public void spinnerPerfilJSON(String response) {
+    private void spinnerPerfilJSON(String response) {
 
         try {
             JSONObject object = new JSONObject(response);
@@ -414,15 +410,10 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     index = parent.getSelectedItemPosition();
-                    //  index++;
-                    //idPerfil = index;
-
-                    //if (perfilArrayList.get(index).getId().equals(index)){
                     idPerfil = perfilArrayList.get(index).getId();
 
                     System.out.println("ID Selecionado: " + idPerfil);
 
-                    // }
                 }
 
                 @Override
@@ -437,7 +428,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         }
     }
 
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -460,12 +451,12 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         });
     }
 
-    public void irHome() {
+    private void irHome() {
         startActivity(new Intent(SolicitarDocumentosActivity.this, HomeAlunoActivity.class));
 
     }
 
-    public void clickBotaoHomeUfape() {
+    private void clickBotaoHomeUfape() {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -475,7 +466,7 @@ public class SolicitarDocumentosActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
-    public void inicializarComponentes() {
+    private void inicializarComponentes() {
 
         spinnerPerfil = findViewById(R.id.spinnerPerfil);
         linearLayout = findViewById(R.id.linear_docs);

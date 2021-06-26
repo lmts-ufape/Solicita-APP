@@ -40,27 +40,26 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
     public TextView textInfoNome, textInfoCPF, textInfoVinculo, textInfoUnidadeAcademica, textInfoCurso, textInfoEmail, textNomeUsuario;
 
-    Button buttonAlterarPerfil;
+    private Button buttonAlterarPerfil;
+    private ApiInterface apiInterface;
+    private SharedPrefManager sharedPrefManager;
+    private Context context;
 
-    ApiInterface apiInterface;
-    SharedPrefManager sharedPrefManager;
-    Context context;
+    private ArrayList<Perfil> listarPerfilArrayList;
+    private ArrayList<Unidade> listarUnidadesArrayList;
+    private ArrayList<Aluno> listarAlunoArrayList;
+    private ArrayList<User> listarUserArrayList;
 
-    ArrayList<Perfil> listarPerfilArrayList;
-    ArrayList<Unidade> listarUnidadesArrayList;
-    ArrayList<Aluno> listarAlunoArrayList;
-    ArrayList<User> listarUserArrayList;
+    private LinearLayout linearLayout;
+    private RadioGroup radioGroup;
 
-    LinearLayout linearLayout;
-    RadioGroup radioGroup;
+    private ArrayList<Perfil> perfilArrayList;
+    private ArrayList<String> perfil = new ArrayList<>();
 
-    ArrayList<Perfil> perfilArrayList;
-    ArrayList<String> perfil = new ArrayList<>();
+    private Button buttonExcluirPerfil, buttonLogout, buttonHome;
 
-    Button buttonExcluirPerfil, buttonLogout, buttonHome;
-
-    String idPerfil = "";
-    String idPerfilDefault = "";
+    private String idPerfil = "";
+    private String idPerfilDefault = "";
 
     ProgressDialog progressDialog;
 
@@ -73,7 +72,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         context = this;
 
-        //inicializar componentes
         inicializarComponentes();
 
         textNomeUsuario.setText(sharedPrefManager.getSPNome());
@@ -95,7 +93,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
     }
 
-    public void radioGroupJSON(String response) {
+    private void radioGroupJSON(String response) {
         try {
             JSONObject object = new JSONObject(response);
             perfilArrayList = new ArrayList<>();
@@ -113,7 +111,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
             }
             for (int i = 0; i < perfilArrayList.size(); i++) {
                 perfil.add(perfilArrayList.get(i).getCurso() + " - " + perfilArrayList.get(i).getSituacao());
-                ///////           System.out.println("Perfis: "+ perfilArrayList.get(i).getCurso()+ " - "+ perfilArrayList.get(i).getSituacao());
             }
 
             radioGroup = new RadioGroup(this);
@@ -122,7 +119,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
             for (int i = 0; i < perfil.size(); i++) {
                 RadioGroup.LayoutParams rl2;
-                //radioGroup.setId(i);
                 RadioButton radioButton = new RadioButton(this);
                 radioButton.setText(perfil.get(i));
 
@@ -131,24 +127,20 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
             }
             linearLayout.addView(radioGroup);
 
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    RadioButton radioButton = findViewById(checkedId);
-                    Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_LONG).show();
-                   // System.out.println(radioGroup.getCheckedRadioButtonId());
+            radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                RadioButton radioButton = findViewById(checkedId);
+                Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_LONG).show();
 
-                    for (int i = 0; i < perfilArrayList.size(); i++) {
-                        if (radioButton.getText().equals(perfilArrayList.get(i).getCurso() + " - " + perfilArrayList.get(i).getSituacao())) {
-                            System.out.println("Valor do ID: " + perfilArrayList.get(i).getId() + " Índice: " + i);
-                            idPerfil = perfilArrayList.get(i).getId();
-                        }
+                for (int i = 0; i < perfilArrayList.size(); i++) {
+                    if (radioButton.getText().equals(perfilArrayList.get(i).getCurso() + " - " + perfilArrayList.get(i).getSituacao())) {
+                        System.out.println("Valor do ID: " + perfilArrayList.get(i).getId() + " Índice: " + i);
+                        idPerfil = perfilArrayList.get(i).getId();
                     }
-                    for (int j = 0; j < perfilArrayList.size(); j++) {
-                        if (radioButton.getText().equals(perfilArrayList.get(j).getCurso() + " - " + perfilArrayList.get(j).getSituacao())) {
-                            System.out.println("Valor do ID: " + perfilArrayList.get(j).getId());
-                                 idPerfilDefault=perfilArrayList.get(j).getId();
-                        }
+                }
+                for (int j = 0; j < perfilArrayList.size(); j++) {
+                    if (radioButton.getText().equals(perfilArrayList.get(j).getCurso() + " - " + perfilArrayList.get(j).getSituacao())) {
+                        System.out.println("Valor do ID: " + perfilArrayList.get(j).getId());
+                             idPerfilDefault=perfilArrayList.get(j).getId();
                     }
                 }
             });
@@ -157,7 +149,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         }
     }
 
-    public void buscarPerfisJSON() {
+    private void buscarPerfisJSON() {
 
         Call<String> stringCall = apiInterface.getUserPerfil(sharedPrefManager.getSPToken());
         stringCall.enqueue(new Callback<String>() {
@@ -183,7 +175,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
     }
 
-    public void buscarInfoJSON() {
+    private void buscarInfoJSON() {
 
         Call<String> perfilCall = apiInterface.getPerfilInfoJSONString(sharedPrefManager.getSPToken());
         perfilCall.enqueue(new Callback<String>() {
@@ -193,24 +185,6 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
                     String jsonResponse = response.body();
                     buscarInfo(jsonResponse);
-/*                    Aluno aluno = response.body().getAluno();
-                    User user = response.body().getUser();
-                     Unidade unidade = response.body().getUnidade();
-
-                    String nome = user.getName();
-                    textInfoNome.setText(nome);
-                    String cpf = aluno.getCpf();
-                    textInfoCPF.setText(cpf);
-                    String vinculo = perfil.getSituacao();
-                    textInfoVinculo.setText(vinculo);
-                    String curso = perfil.getCurso();
-                    textInfoCurso.setText(curso);
-                    String email = user.getEmail();
-                    textInfoEmail.setText(email);
-
-                    String unidades = unidade.getInstituicao_id();
-                    textInfoUnidadeAcademica.setText(unidades);*/
-
 
                 } else {
 
@@ -225,47 +199,9 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
             }
         });
-
- /*       Call<PerfilResponse> perfilResponseCall = apiInterface.getPerfilInfoJSONString(sharedPrefManager.getSPToken());
-
-        perfilResponseCall.enqueue(new Callback<PerfilResponse>() {
-            @Override
-            public void onResponse(Call<PerfilResponse> call, Response<PerfilResponse> response) {
-                if (response.code()==200){
-
-                    Perfil perfil = response.body().getPerfil();
-                    Aluno aluno = response.body().getAluno();
-                    User user = response.body().getUser();
-                   // Unidade unidade = response.body().getUnidade();
-
-                    String nome = user.getName();
-                    textInfoNome.setText(nome);
-                    String cpf = aluno.getCpf();
-                    textInfoCPF.setText(cpf);
-                    String vinculo = perfil.getSituacao();
-                    textInfoVinculo.setText(vinculo);
-                    String curso = perfil.getCurso();
-                    textInfoCurso.setText(curso);
-                    String email = user.getEmail();
-                    textInfoEmail.setText(email);
-
-                  //  String unidades = unidade.getInstituicao_id();
-                    //textInfoUnidadeAcademica.setText(unidades);
-
-
-                }else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PerfilResponse> call, Throwable t) {
-
-            }
-        });*/
     }
 
-    public void buscarInfo(String response) {
+    private void buscarInfo(String response) {
 
         progressDialog.show();
         try {
@@ -339,7 +275,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         }
     }
 
-    public void inicializarComponentes() {
+    private void inicializarComponentes() {
 
         textInfoNome = findViewById(R.id.textProtNome);
         textInfoCPF = findViewById(R.id.textInfoCPF);
@@ -355,7 +291,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         buttonAlterarPerfil = findViewById(R.id.buttonAlterarPerfil);
     }
 
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -379,7 +315,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
     }
 
-    public void irHome() {
+    private void irHome() {
         startActivity(new Intent(InformacoesDiscenteActivity.this, HomeAlunoActivity.class));
 
     }
@@ -399,7 +335,7 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
         startActivity(irTelaAdicionarPerfil);
     }
 
-    public void excluirPerfil() {
+    private void excluirPerfil() {
 
         if (idPerfil.equals("")) {
             Toast.makeText(getApplicationContext(), "Selecione um perfil.", Toast.LENGTH_LONG).show();
@@ -418,47 +354,40 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
             dialogExluirPerfil.setView(mView);
 
-            buttonCancelar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogExluirPerfil.dismiss();
-                }
-            });
-            buttonConfirmar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Call<DefaultResponse> callExcluir = apiInterface.postExcluirPerfil(idPerfil, sharedPrefManager.getSPToken());
-                    callExcluir.enqueue(new Callback<DefaultResponse>() {
-                        @Override
-                        public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                            DefaultResponse dr = response.body();
-                            if (response.isSuccessful()) {
+            buttonCancelar.setOnClickListener(v -> dialogExluirPerfil.dismiss());
+
+            buttonConfirmar.setOnClickListener(v -> {
+                Call<DefaultResponse> callExcluir = apiInterface.postExcluirPerfil(idPerfil, sharedPrefManager.getSPToken());
+                callExcluir.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        DefaultResponse dr = response.body();
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
+                            if (response.code() == 201) {
                                 Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                if (response.code() == 201) {
-                                    Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
-                                }else{
-                                    System.out.println("Else 201");
-                                }
-                            }else {
-
-                                Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
-
+                                startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
+                            }else{
+                                System.out.println("Else 201");
                             }
-                        }
+                        }else {
 
-                        @Override
-                        public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
+
                         }
-                    });
-                }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                    }
+                });
             });
             dialogExluirPerfil.show();
 
         }
     }
-    public void alterarPerfilDefault() {
+    private void alterarPerfilDefault() {
 
         if (idPerfilDefault.equals("")) {
             Toast.makeText(getApplicationContext(), "Selecione um perfil.", Toast.LENGTH_LONG).show();
@@ -478,46 +407,38 @@ public class InformacoesDiscenteActivity extends AppCompatActivity {
 
             dialogAlterarPerfil.setView(mView2);
 
-            buttonCancelar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogAlterarPerfil.dismiss();
-                }
-            });
+            buttonCancelar.setOnClickListener(v -> dialogAlterarPerfil.dismiss());
 
-            buttonConfirmar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            buttonConfirmar.setOnClickListener(v -> {
 
-                    Call<DefaultResponse> callAlterar = apiInterface.postAlterarPerfil(idPerfilDefault, sharedPrefManager.getSPToken());
-                    callAlterar.enqueue(new Callback<DefaultResponse>() {
-                        @Override
-                        public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                            if (response.code() == 200) {
+                Call<DefaultResponse> callAlterar = apiInterface.postAlterarPerfil(idPerfilDefault, sharedPrefManager.getSPToken());
+                callAlterar.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        if (response.code() == 200) {
 
-                                DefaultResponse dr = response.body();
-                                Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
+                            DefaultResponse dr = response.body();
+                            Toast.makeText(getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(InformacoesDiscenteActivity.this, InformacoesDiscenteActivity.class));
 
-                            } else {
+                        } else {
 
-                                Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
-
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Falha na comunicação com o servidor.", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(InformacoesDiscenteActivity.this, LoginActivity.class));
 
                         }
-                    });
-                }
+                    }
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+                    }
+                });
             });
             dialogAlterarPerfil.show();
         }
     }
 
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

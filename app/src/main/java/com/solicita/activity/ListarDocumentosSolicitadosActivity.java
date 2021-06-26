@@ -2,13 +2,9 @@ package com.solicita.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,7 +19,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.solicita.R;
 import com.solicita.activity.ufape.MainActivityUfape;
 import com.solicita.adapter.AdapterDocumentos;
 import com.solicita.helper.RecyclerItemClickListener;
@@ -47,12 +42,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.solicita.R.*;
-import static com.solicita.R.string.*;
+import static com.solicita.R.id;
+import static com.solicita.R.layout;
+import static com.solicita.R.string.message_exclusao_requisicao;
+import static com.solicita.R.string.titulo_exclusao_requisicao;
 
 public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
-    //RecyclerView
     public RecyclerView recyclerRequisicoes;
     public List<Solicitacoes> listaSolicitacoes = new ArrayList<>();
     public AdapterDocumentos adapterDocumentos;
@@ -136,7 +132,6 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
         recyclerRequisicoes.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerRequisicoes.setAdapter(adapterDocumentos);
 
-        //evento de click
         recyclerRequisicoes.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerRequisicoes, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -169,73 +164,58 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
                     tvDetalhes.setText(solicitacoes.getArrayDetalhes().toString().replace("[","").replace("]", ""));
                 }
 
-                buttonOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                buttonOk.setOnClickListener(v -> alertDialog.dismiss());
+
+                buttonExcluir.setOnClickListener(v -> {
+
+                    AlertDialog dialogExluirPerfil = new AlertDialog.Builder(ListarDocumentosSolicitadosActivity.this).create();
+
+                    View mView2 = getLayoutInflater().inflate(layout.dialog_confirmacao, null);
+
+                    TextView tvTitulo = mView2.findViewById(id.tvTitulo);
+                    TextView tvMensagem = mView2.findViewById(id.tvMensagem);
+                    Button buttonConfirmar = mView2.findViewById(id.buttonConfirmar);
+                    Button buttonCancelar = mView2.findViewById(id.buttonCancelar);
+
+                    tvTitulo.setText(titulo_exclusao_requisicao);
+                    tvMensagem.setText(message_exclusao_requisicao);
+
+                    dialogExluirPerfil.setView(mView2);
+
+                    buttonCancelar.setOnClickListener(v1 -> {
                         alertDialog.dismiss();
+                        dialogExluirPerfil.dismiss();
+                    });
 
+                    buttonConfirmar.setOnClickListener(v12 -> {
+                        String idRequisicao = solicitacoes.getId();
+                        System.out.println("Valor do ID: "+ idRequisicao);
 
-                    }
-                });
-                buttonExcluir.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        AlertDialog dialogExluirPerfil = new AlertDialog.Builder(ListarDocumentosSolicitadosActivity.this).create();
-
-                        View mView2 = getLayoutInflater().inflate(layout.dialog_confirmacao, null);
-
-                        TextView tvTitulo = mView2.findViewById(id.tvTitulo);
-                        TextView tvMensagem = mView2.findViewById(id.tvMensagem);
-                        Button buttonConfirmar = mView2.findViewById(id.buttonConfirmar);
-                        Button buttonCancelar = mView2.findViewById(id.buttonCancelar);
-
-                        tvTitulo.setText(titulo_exclusao_requisicao);
-                        tvMensagem.setText(message_exclusao_requisicao);
-
-                        dialogExluirPerfil.setView(mView2);
-
-                        buttonCancelar.setOnClickListener(new View.OnClickListener() {
+                        Call<DefaultResponse> defaultResponseCall = apiInterface.postExcluirRequisicao(idRequisicao, sharedPrefManager.getSPToken());
+                        defaultResponseCall.enqueue(new Callback<DefaultResponse>() {
                             @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-                                dialogExluirPerfil.dismiss();
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                DefaultResponse dr = response.body();
+                                if (response.code()==201){
+                                    Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
+                                    alertDialog.dismiss();
+                                    dialogExluirPerfil.dismiss();
+                                    adapterDocumentos.removerItem(position);
+
+                                }else{
+                                    alertDialog.dismiss();
+                                    dialogExluirPerfil.dismiss();
+                                    Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
                             }
                         });
-
-                        buttonConfirmar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String idRequisicao = solicitacoes.getId();
-                                System.out.println("Valor do ID: "+ idRequisicao);
-
-                                Call<DefaultResponse> defaultResponseCall = apiInterface.postExcluirRequisicao(idRequisicao, sharedPrefManager.getSPToken());
-                                defaultResponseCall.enqueue(new Callback<DefaultResponse>() {
-                                    @Override
-                                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                        DefaultResponse dr = response.body();
-                                        if (response.code()==201){
-                                            Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                            alertDialog.dismiss();
-                                            dialogExluirPerfil.dismiss();
-                                            adapterDocumentos.removerItem(position);
-
-                                        }else{
-                                            alertDialog.dismiss();
-                                            dialogExluirPerfil.dismiss();
-                                            Toast.makeText(context.getApplicationContext(), dr.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                        });
-                        dialogExluirPerfil.show();
-                    }
+                    });
+                    dialogExluirPerfil.show();
                 });
 
                 alertDialog.setView(mView);
@@ -390,17 +370,6 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
 
             System.out.println("ID: " + listarIdCursos + " Curso: " + listarCursos + " Abreviatura " + listarCursosAbrev);
 
-/*            for (int i = 0; i < jsonArrayRequisicoes.length(); i++) {
-                listaDocs = new ArrayList<>();
-                for (int j = 0; j < jsonArraySolicitados.length(); j++) {
-                    if (listarRequisicoesArrayList.get(i).getId().equals(listarSolicitadosArrayList.get(j).getRequisicaoId())) {
-                        listaDocs.add(listarSolicitadosArrayList.get(j).getDocumentoId());
-                    }
-                }
-                System.out.println("Requisição: " + listarRequisicoesArrayList.get(i).getId() + " " + listarRequisicoesArrayList.get(i).getPerfilId() + " " +
-                        listarRequisicoesArrayList.get(i).getData_pedido() + " " + listarRequisicoesArrayList.get(i).getHora_pedido() + " " + listaDocs);
-            }*/
-
             for (int i = 0; i < jsonArrayRequisicoes.length(); i++) {
                 for (int j = 0; j < jsonArrayPerfis.length(); j++) {
                     for (int k = 0; k < jsonArrayCursos.length(); k++) {
@@ -438,15 +407,9 @@ public class ListarDocumentosSolicitadosActivity extends AppCompatActivity {
                                 }
                                 System.out.println(listaElementosDoc);
                                 System.out.println(listaElementosStatus);
-
                                 String convertDocs = listaElementosDoc.toString().replace("[", "").replace("]", "").replace(",", "\n");
                                 String convertStatus = listaElementosStatus.toString().replace("[", " ").replace("]", "").replace(",", "\n");
                                 String convertDetalhes = listaDetalhes.toString().replace("[", "").replace("]", "").replace(",", "\n");
-
-                              /*  System.out.println(listarRequisicoesArrayList.get(i).getId() + " " + listarCursosArrayList.get(k).getCurso() + " " +
-                                        listarCursosArrayList.get(k).getAbreviatura() + " " + listarRequisicoesArrayList.get(i).getData_pedido() + " " +
-                                        listarRequisicoesArrayList.get(i).getHora_pedido() + " " + listaDocs + " " + listaStatus);*/
-
                                 String data = listarRequisicoesArrayList.get(i).getData_pedido();
                                 SimpleDateFormat conversaoData = new SimpleDateFormat("yyyy-MM-dd");
                                 Date date = conversaoData.parse(data);

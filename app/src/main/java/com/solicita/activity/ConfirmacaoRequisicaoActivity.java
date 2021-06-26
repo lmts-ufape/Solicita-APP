@@ -28,14 +28,10 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
 
 
     private TextView textProtNome, textProtCurso, textProtVinculo, textProtData, textProtDocumentos, textNomeUsuario;
-
     private SharedPrefManager sharedPrefManager;
-
-    Button buttonLogout, buttonHome, buttonVoltar;
-
-    ApiInterface apiInterface;
-
-    ArrayList listaDocsSolicitados = null;
+    private Button buttonLogout, buttonHome, buttonVoltar;
+    private ApiInterface apiInterface;
+    private ArrayList listaDocsSolicitados = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +52,6 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
 
         buttonVoltar.setOnClickListener(v -> irHome());
 
-        //Recuperar dados enviados
         Bundle dados = getIntent().getExtras();
 
         String curso = dados.getString("curso");
@@ -83,15 +78,13 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
         for(int i=0; i<solicitados.size(); i++){
             System.out.println(solicitados.get(i));
         }
-        //Configura valores recuperados
-
         textProtNome.setText(sharedPrefManager.getSPNome());
         textProtData.setText(novaData + ", " + hora);
         textProtDocumentos.setText(convert);
         textProtCurso.setText(curso);
         textProtVinculo.setText(situacao);
     }
-    public void inicializarComponentes(){
+    private void inicializarComponentes(){
 
         textProtNome = findViewById(R.id.textProtNome);
         textProtCurso = findViewById(R.id.textProtCurso);
@@ -103,7 +96,7 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
         buttonVoltar = findViewById(R.id.buttonVoltar);
         textNomeUsuario = findViewById(R.id.textNomeUsuario);
     }
-    public void logoutApp() {
+    private void logoutApp() {
 
         Call<DefaultResponse> responseCall = apiInterface.postLogout(sharedPrefManager.getSPToken());
 
@@ -126,7 +119,7 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
         });
 
     }
-    public void clickBotaoHomeUfape(){
+    private void clickBotaoHomeUfape(){
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -135,7 +128,7 @@ public class ConfirmacaoRequisicaoActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, MainActivityUfape.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
-    public void irHome(){
+    private void irHome(){
         startActivity(new Intent(ConfirmacaoRequisicaoActivity.this, HomeAlunoActivity.class));
 
     }

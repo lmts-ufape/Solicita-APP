@@ -14,10 +14,10 @@ import com.solicita.network.ApiInterface;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPrefManager sharedPrefManager;
-    ApiInterface apiInterface;
-    TextView tvNome;
-    Button btnLogout;
+    private SharedPrefManager sharedPrefManager;
+    private ApiInterface apiInterface;
+    private TextView tvNome;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(view -> logoutApp());
 
     }
-    public void logoutApp() {
+    private void logoutApp() {
         sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_STATUS_LOGIN, false);
         startActivity(new Intent(MainActivity.this, LoginActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
